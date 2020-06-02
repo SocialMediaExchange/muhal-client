@@ -14,10 +14,6 @@ export default {
   head() {
     return {
       title: "Case list",
-      meta: [
-        { charset: "utf-8" }
-        // { name: "viewport", content: "width=device-width, initial-scale=1" }
-      ],
       link: [
         {
           rel: "stylesheet",
