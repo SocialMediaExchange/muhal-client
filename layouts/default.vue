@@ -1,8 +1,7 @@
 <template>
-  <div id="main" dir="ltr">
+  <div id="main" :dir="dir">
     <Header />
     <nuxt />
-    <!-- <Footer></Footer> -->
     <Footer />
   </div>
 </template>
@@ -16,7 +15,7 @@ export default {
     return {
       title: "Case list",
       meta: [
-        { charset: "utf-8" },
+        { charset: "utf-8" }
         // { name: "viewport", content: "width=device-width, initial-scale=1" }
       ],
       link: [
@@ -41,7 +40,11 @@ export default {
   data() {
     return {}
   },
-  methods: {}
+  computed: {
+    dir() {
+      return this.$i18n.locale == "ar" ? "rtl" : "ltr"
+    }
+  }
 }
 </script>
 

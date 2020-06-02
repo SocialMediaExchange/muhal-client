@@ -1,6 +1,6 @@
 <template>
   <footer>
-    {{ license }} <a href="https://smex.org" target="_blank">SMEX</a>
+    {{ license }} <a href="https://smex.org" target="_blank">SMEX - سمكس</a>
   </footer>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      license: 'CC-BY'
+      license: this.$t('license')
     }
   },
 }
@@ -17,3 +17,14 @@ export default {
 
 <style>
 </style>
+
+<i18n>
+{
+  "en": {
+    "license": "CC-BY"
+  },
+  "ar": {
+    "license": "المشاع الإبداعي - النسبة"
+  }
+}
+</i18n>
