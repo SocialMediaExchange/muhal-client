@@ -17,7 +17,8 @@ export default {
       link: [
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css?family=El+Messiri:wght@700&display=swap"
+          // import Google Fonts: ElMessiri (bold), and Markaz (regular)
+          href: "https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Markazi+Text&display=swap"
         }
       ]
     }
@@ -46,9 +47,8 @@ export default {
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
+  font-family: 'Markazi Text', serif;
+  font-size: 1em;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
