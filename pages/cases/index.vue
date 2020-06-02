@@ -1,15 +1,6 @@
 <template>
-  <div>
-    <case-card type="case" />
-    <case-card type="complaint" />
-    <case-card type="complaint" />
-    <case-card type="complaint" />
-    <case-card type="case" />
-
-    <case-card v-for="_case in cases" v-bind:key="_case.id" :type="_case.type">
-      {{ item.text }}
-    </case-card>
-    
+  <div v-if="cases">
+    <case-card v-for="case_ in cases" v-bind:key="case_.id" :case_="case_"></case-card>
   </div>
 </template>
 
@@ -25,24 +16,23 @@ export default {
   components: {
     CaseCard
   },
-  async asyncData(context) {
+  async asyncData({ $axios, params }) {
     try {
       let cases = await $axios.$get(`/cases/`)
-      return { cases }
+      return { cases: cases }
     } catch (e) {
       return { cases: [] }
     }
-
   },
   data() {
     return {
-      //cases: []
+      cases: []
     }
   },
   methods: {
     shareCase(case_id) {
-      console.log(deleted`${case_id.id}`)
-    },
+      console.log(`share ${case_id}`)
+    }
   }
 }
 </script>
