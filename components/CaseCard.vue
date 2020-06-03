@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="`/cases/${case_.id}`">
+  <nuxt-link :to="localePath(`/cases/${case_.id}`)">
     <article class="center mw5 mw6-ns br3 hidden mv4">
       <div
         class="br3 br--top mv0 pv2 ph3"
@@ -19,10 +19,10 @@
 
 <script>
 const currentStatusColor = {
-  open: "hsla(238, 41%, 50%, 1)",
-  closed: "hsla(80, 41%, 50%, 1)",
-  abstenia: "hsla(120, 41%, 50%, 1)",
-  na: "hsla(210, 41%, 50%, 1)"
+  open: "#f89d61",
+  closed: "#3d3356",
+  abstenia: "#f89d61",
+  na: "hsla(210, 41%, 50%, 0.0)"
 }
 
 export default {
