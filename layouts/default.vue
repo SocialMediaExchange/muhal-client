@@ -14,13 +14,6 @@ export default {
   head() {
     return {
       title: "Case list",
-      link: [
-        {
-          rel: "stylesheet",
-          // import Google Fonts: ElMessiri (bold), and Markaz (regular)
-          href: "https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Markazi+Text&display=swap"
-        }
-      ]
     }
   },
   components: {

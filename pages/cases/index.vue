@@ -1,6 +1,6 @@
 <template>
   <div v-if="cases">
-    <case-card v-for="case_ in cases" v-bind:key="case_.id" :case_="case_"></case-card>
+    <case-card v-for="case_ in cases" v-bind:key="case_.id" :case_="case_" />
   </div>
 </template>
 
