@@ -34,6 +34,7 @@ export default {
   ** Plugins to load before mounting the App 
   */
   plugins: [
+    { src: '~plugins/i18n.js' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -57,7 +58,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://localhost:8000/api'
+    baseURL: 'http://localhost:8000/api',
   },
   /*
   ** Build configuration

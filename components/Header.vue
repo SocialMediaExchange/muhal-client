@@ -4,7 +4,7 @@
       <nuxt-link :to="localePath('/')" class="ph4 dib v-mid f2 link near-black">
         <img src="~assets/logo.svg" class="h3 dib v-mid" :class="$i18n.locale == 'en' ? 'mirror' : ''" />
       </nuxt-link>
-      <nuxt-link to="cases" class="ph4 dib v-mid f2 link near-black">{{ $t('cases') }}</nuxt-link>
+      <nuxt-link :to="localePath('/cases')" class="ph4 dib v-mid f2 link near-black">{{ $t('cases') }}</nuxt-link>
       <nuxt-link :to="switchLocalePath(otherLanguage.code)">{{ otherLanguage.label }}</nuxt-link>
     </nav>
   </header>

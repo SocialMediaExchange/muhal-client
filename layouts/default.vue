@@ -1,7 +1,9 @@
 <template>
-  <div id="main" :dir="dir">
+  <div id="main" :dir="dir" :key="dir">
     <Header />
-    <nuxt />
+    <div class="mw8 center ph-ns pv4">
+      <nuxt />
+    </div>
     <Footer />
   </div>
 </template>
@@ -13,7 +15,7 @@ import Footer from "~/components/Footer.vue"
 export default {
   head() {
     return {
-      title: "Case list",
+      title: "Case list"
     }
   },
   components: {
@@ -40,7 +42,7 @@ export default {
 
 <style>
 html {
-  font-family: 'Markazi Text', serif;
+  font-family: "Markazi Text", serif;
   font-size: 1em;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
