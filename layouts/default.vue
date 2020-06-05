@@ -22,13 +22,6 @@ export default {
     Header,
     Footer
   },
-  async asyncData({ $axios, params }) {
-    try {
-      return {}
-    } catch (e) {
-      return {}
-    }
-  },
   data() {
     return {}
   },

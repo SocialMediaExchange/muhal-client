@@ -70,9 +70,12 @@ export default {
     extend(config, ctx) {
     }
   },
+  router: {
+    middleware: ['Apilocale',]
+  },
   i18n: {
     // Doc: https://nuxt-community.github.io/nuxt-i18n/options-reference.html
-    locales: ['en', 'ar',],
+    locales: ['ar', 'en', ],
     strategy: 'prefix',
     defaultLocale: 'ar',
     vueI18nLoader: true,
@@ -88,14 +91,7 @@ export default {
     },
     vueI18n: {
       fallbackLocale: 'ar',
-      messages: {
-        ar: {
-          welcome: 'مرحبا'
-        },
-        en: {
-          welcome: 'hello'
-        }
-      }
-    }
+      detectBrowserLanguage: false,
+    },
   }
 }
