@@ -71,7 +71,7 @@ export default {
     }
   },
   router: {
-    middleware: ['Apilocale',]
+    middleware: ['ApiLocale',]
   },
   i18n: {
     // Doc: https://nuxt-community.github.io/nuxt-i18n/options-reference.html
