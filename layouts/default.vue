@@ -1,7 +1,7 @@
 <template>
-  <div id="main" :dir="dir" :key="dir">
+  <div id="main" :dir="dir" :key="dir" class="markazi">
     <Header />
-    <div class="mw8 center ph-ns pv4">
+    <div>
       <nuxt />
     </div>
     <Footer />
@@ -35,7 +35,6 @@ export default {
 
 <style>
 html {
-  font-family: "Markazi Text", serif;
   font-size: 1em;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

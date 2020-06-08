@@ -28,7 +28,9 @@ export default {
   ** Global CSS
   */
   css: [
-    'tachyons/css/tachyons.css'
+    'tachyons/css/tachyons.css',
+    '~/assets/css/transitions.css',
+    '~/assets/css/global.css',
   ],
   /*
   ** Plugins to load before mounting the App 
