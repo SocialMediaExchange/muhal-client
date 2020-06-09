@@ -1,5 +1,6 @@
 <template>
-  <div id="main" :dir="dir" :key="dir" class="markazi">
+  <div id="main" :key="$i18n.locale" class="markazi"> 
+    <!-- HACK :key change forces re-rendering of the page based on the locale  -->
     <Header />
     <div>
       <nuxt />
@@ -25,11 +26,6 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    dir() {
-      return this.$i18n.locale == "ar" ? "rtl" : "ltr"
-    }
-  }
 }
 </script>
 
@@ -42,14 +38,5 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "El Messiri", sans-serif;
 }
 </style>
