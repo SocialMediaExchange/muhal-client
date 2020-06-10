@@ -11,11 +11,9 @@
           v-for="(defendant, index) in case_.defendants"
           :key="defendant.id"
         >
-          {{ defendant.firstName }} {{ defendant.lastName }}
-          <!-- 
+          {{ defendant.firstName }} {{ defendant.lastName }}<!-- 
             HACK skip the white space before the comma
-          -->
-          <span v-if="index < case_.defendants.length - 1">{{ $t(',') }}</span>
+          --><span v-if="index < case_.defendants.length - 1">{{ $t(',') }}</span>
         </span>
       </h1>
 
@@ -26,10 +24,8 @@
           v-for="(plaintiff, index) in case_.plaintiffs"
           :key="plaintiff.id"
         >
-          {{ plaintiff.firstName }} {{ plaintiff.lastName }}
-          <!--
-          -->
-          <span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}</span>
+          {{ plaintiff.firstName }} {{ plaintiff.lastName }}<!--
+          --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}</span>
         </span>
       </h1>
       <!-- <p class="f4">
@@ -124,20 +120,9 @@ table {
   border-collapse: collapse;
 }
 
-tr {
-  min-height: 1.5rem;
-}
-/* float start  
+/* float start */
 .fs {
   float: inline-start;
-}*/
-
-.fs {
-  float: left;
-}
-
-html[dir="rtl"] .fs {
-  float: right;
 }
 </style>
 

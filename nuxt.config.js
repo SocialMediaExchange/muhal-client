@@ -73,7 +73,8 @@ export default {
     },
     postcss: {
       plugins: {
-        'postcss-bidirection': {}
+        // 'postcss-bidirection': {}
+        'postcss-logical': {}
       }
     }
   },
