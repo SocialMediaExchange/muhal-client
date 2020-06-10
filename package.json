@@ -19,5 +19,7 @@
     "tachyons": "^4.11.1",
     "vue-i18n": "^8.18.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "postcss-bidirection": "^2.7.0"
+  }
 }

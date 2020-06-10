@@ -70,6 +70,11 @@ export default {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+    },
+    postcss: {
+      plugins: {
+        'postcss-bidirection': {}
+      }
     }
   },
   router: {
