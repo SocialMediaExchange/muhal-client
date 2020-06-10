@@ -4,5 +4,9 @@ export default function (context) {
 
     context.app.$axios.defaults.headers.common['Accept-Language'] = pathLocale
     // context.app.i18n.setLocale(pathLocale)
+    context.app.head.htmlAttrs = {
+      lang: pathLocale,
+      dir: pathLocale == "ar" ? "rtl" : "ltr"
+    }
   }
   
