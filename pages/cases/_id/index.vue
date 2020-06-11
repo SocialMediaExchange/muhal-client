@@ -28,12 +28,6 @@
           --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}</span>
         </span>
       </h1>
-      <!-- <p class="f4">
-        {{ $t('main.accusedOf') }}
-        <span v-for="(law, index) in chargedUsing" :key="law.id">
-          {{ law.name }}<span v-if="index < chargedUsing.length - 1">{{ $t(',') }}</span>
-        </span>
-      </p>-->
       <p class="f4">{{ case_.charge }}</p>
     </div>
 
