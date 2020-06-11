@@ -43,14 +43,14 @@
 
         <div class="cf ph2-ns bt bw1 b--light-silver pb5">
           <div class="fs w-100 w-30-ns">
-            <h2 class>{{ $t("details.complaint.investigation.title") }}</h2>
+            <h2 class>{{ $t("details.complaint.title") }}</h2>
           </div>
           <div class="fs w-100 w-60-ns f3 pv0 pv2-ns">
             <table class="w-100" cellspacing="0">
               <tbody class="cf">
                 <template v-for="(attr, index) in investigationAttributes">
                   <DetailTableRow v-if="case_[attr]" :key="index">
-                    <template v-slot:title>{{ $t(`details.complaint.investigation.${attr}`) }}</template>
+                    <template v-slot:title>{{ $t(`details.complaint.${attr}`) }}</template>
                     <template v-slot:content>{{ case_[attr] }}</template>
                   </DetailTableRow>
                 </template>
@@ -158,7 +158,7 @@ export default {
       ]
     },
     caseAttributes: function() {
-      return ["charge"]
+      return ["charge", "bail", "sentenced", "sentence", "inAbsentia"]
     }
   }
 }
@@ -192,24 +192,26 @@ tr:last-child {
     "details": {
       "header": "Case details",
       "complaint": {
-        "investigation": {
-          "title": "Complaint details",
-          "dateOfContact": "Date of contact",
-          "dateOfInvestigation": "Date of investigation",
-          "stationName": "Station name",
-          "detained": "Detained?",
-          "detainedFor": "Detention length (days)",
-          "contentDeletion": "Request to delete content?",
-          "pledgeSigning": "Requested to sign a pleadge",
-          "reconciliation": "Reconciliation?",
-          "contactedVia": "Contacted via"
-          }
+        "title": "Complaint details",
+        "dateOfContact": "Date of contact",
+        "dateOfInvestigation": "Date of investigation",
+        "stationName": "Station name",
+        "detained": "Detained?",
+        "detainedFor": "Detention length (days)",
+        "contentDeletion": "Request to delete content?",
+        "pledgeSigning": "Requested to sign a pleadge",
+        "reconciliation": "Reconciliation?",
+        "contactedVia": "Contacted via"
       },
       "case": {
         "title": "Case details",
         "charge": "Charge",
         "judge": "Judge",
-        "chargedUsing": "Charged using"
+        "chargedUsing": "Charged using",
+        "bail": "Bail",
+        "sentenced": "Sentenced?",
+        "sentence": "Sentence",
+        "inAbsentia": "In absentia?"
       }
     },
     "moreCases": "View more cases"
@@ -224,24 +226,26 @@ tr:last-child {
     "details": {
       "header": "تفاصيل الدعوى",
       "complaint": {
-        "investigation": {
-          "title": "تفاصيل الشكوى",
-          "dateOfContact": "تاريخ الاتصال",
-          "dateOfInvestigation": "تاريخ التحقيق",
-          "stationName": "إسم المخفر",
-          "detained": "اعتقل؟",
-          "detainedFor": "أيّام الإعتقال",
-          "contentDeletion": "طُلب حذف المحتوى", 
-          "pledgeSigning": "طُلب توقيع تعهّد",
-          "reconciliation": "مصالحة؟",
-          "contactedVia": "وسيلة الاستدعاء"
-          }
+        "title": "تفاصيل الشكوى",
+        "dateOfContact": "تاريخ الاتصال",
+        "dateOfInvestigation": "تاريخ التحقيق",
+        "stationName": "إسم المخفر",
+        "detained": "اعتقل؟",
+        "detainedFor": "أيّام الإعتقال",
+        "contentDeletion": "طُلب حذف المحتوى", 
+        "pledgeSigning": "طُلب توقيع تعهّد",
+        "reconciliation": "مصالحة؟",
+        "contactedVia": "وسيلة الاستدعاء"
       },
       "case": {
         "title": "تفاصيل القضيّة",
         "charge": "التهمة",
         "judge": "القاضي/ة",
-        "chargedUsing": "متهم باستعمال القوانين"
+        "chargedUsing": "متهم باستعمال القوانين",
+        "bail": "مبلغ الكفالة",
+        "sentenced": "تم الحكم؟",
+        "sentence": "الحكم",
+        "inAbsentia": "حكم غيابي؟"
       }
     },
     "moreCases": "عرض شكاوى أخرى"
