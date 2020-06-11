@@ -49,35 +49,11 @@
             <table class="w-100" cellspacing="0">
               <tbody class="cf">
                 <template v-for="(attr, index) in investigationAttributes">
-                  <tr class="bb bw1 b--light-silver v-mid" v-if="case_[attr]" :key="index">
-                    <td
-                      class="f4 w-100 w-30-ns messiri pv2"
-                    >{{ $t(`details.complaint.investigation.${attr}`) }}</td>
-                    <td class="f3 w-100 w-70-ns pv2">
-                      <span v-if="case_[attr]">{{ case_[attr] }}</span>
-                    </td>
-                  </tr>
+                  <DetailTableRow v-if="case_[attr]" :key="index">
+                    <template v-slot:title>{{ $t(`details.complaint.investigation.${attr}`) }}</template>
+                    <template v-slot:content>{{ case_[attr] }}</template>
+                  </DetailTableRow>
                 </template>
-                <tr v-if="case_.chargedUsing" class="v-mid">
-                  <td
-                    class="f4 w-100 w-30-ns messiri pv2"
-                  >{{ $t(`details.complaint.investigation.chargedUsing`) }}</td>
-                  <td class="f3 w-100 w-70-ns pv2">
-                    <!-- {{case_.chargedUsing}} -->
-                    <ul class="list pa0 ma0">
-                      <li v-for="law in case_.chargedUsing" :key="law.id">
-                        <a
-                          :href="law.url"
-                          class="link underline-hover muhal-purple"
-                        >{{ law.law }}: {{ law.number }} {{ law.name }} >></a>
-                      </li>
-                    </ul>
-                    <!-- <span v-for="(law, index) in case_.chargedUsing" :key="law.id">
-                      <a :href="law.url">{{ law }}</a>
-                      <span v-if="index < case_.chargedUsing.length - 1">{{ $t(',') }}</span>
-                    </span>-->
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -86,7 +62,51 @@
           </div>
         </div>
 
-
+        <div class="cf ph2-ns bt bw1 b--light-silver pb5">
+          <div class="fs w-100 w-30-ns">
+            <h2 class>{{ $t("details.case.title") }}</h2>
+          </div>
+          <div class="fs w-100 w-60-ns f3 pv0 pv2-ns">
+            <table class="w-100" cellspacing="0">
+              <tbody class="cf">
+                <DetailTableRow v-if="case_.judge">
+                  <template v-slot:title>{{ $t(`details.case.judge`) }}</template>
+                  <template v-slot:content>
+                    <span>{{ `${case_.judge.firstName} ${case_.judge.lastName}` }}</span>
+                    <br />
+                    <span
+                      class="b f4"
+                    >{{ `${case_.judge.legalEntity}${$t(',')} ${case_.judge.kaza}` }}</span>
+                  </template>
+                </DetailTableRow>
+                <DetailTableRow v-if="case_.chargedUsing">
+                  <template v-slot:title>{{ $t(`details.case.chargedUsing`) }}</template>
+                  <template v-slot:content>
+                    <ul class="list pa0 ma0">
+                      <li v-for="law in case_.chargedUsing" :key="law.id">
+                        <a
+                          :href="law.url"
+                          class="link underline-hover muhal-purple"
+                        >{{ law.law }}: {{ law.number }} {{ law.name }} >></a>
+                      </li>
+                    </ul>
+                  </template>
+                </DetailTableRow>
+                <template v-for="(attr, index) in caseAttributes">
+                  <DetailTableRow v-if="case_[attr]" :key="index">
+                    <template v-slot:title>{{ $t(`details.case.${attr}`) }}</template>
+                    <template v-slot:content>
+                      <span v-if="case_[attr]">{{ case_[attr] }}</span>
+                    </template>
+                  </DetailTableRow>
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <div class="fs w-100 w-10-ns">
+            <!-- HACK to avoid putting pr6 on the parent element -->
+          </div>
+        </div>
       </div>
     </div>
 
@@ -101,13 +121,15 @@
 </template>
 
 <script>
+import DetailTableRow from "~/components/DetailTableRow.vue"
+
 export default {
   head() {
     return {
       title: "Case detail"
     }
   },
-  components: {},
+  components: { DetailTableRow },
   async asyncData({ $axios, params }) {
     try {
       let case_ = await $axios.$get(`/cases/${params.id}`)
@@ -134,6 +156,9 @@ export default {
         "reconciliation",
         "contactedVia"
       ]
+    },
+    caseAttributes: function() {
+      return ["charge"]
     }
   }
 }
@@ -147,6 +172,10 @@ table {
 /* float start */
 .fs {
   float: inline-start;
+}
+
+tr:last-child {
+  border: 0;
 }
 </style>
 
@@ -168,7 +197,6 @@ table {
           "dateOfContact": "Date of contact",
           "dateOfInvestigation": "Date of investigation",
           "stationName": "Station name",
-          "chargedUsing": "Charged using",
           "detained": "Detained?",
           "detainedFor": "Detention length (days)",
           "contentDeletion": "Request to delete content?",
@@ -179,7 +207,9 @@ table {
       },
       "case": {
         "title": "Case details",
-        "charge": "Charge"
+        "charge": "Charge",
+        "judge": "Judge",
+        "chargedUsing": "Charged using"
       }
     },
     "moreCases": "View more cases"
@@ -199,7 +229,6 @@ table {
           "dateOfContact": "تاريخ الاتصال",
           "dateOfInvestigation": "تاريخ التحقيق",
           "stationName": "إسم المخفر",
-          "chargedUsing": "متهم باستعمال القوانين",
           "detained": "اعتقل؟",
           "detainedFor": "أيّام الإعتقال",
           "contentDeletion": "طُلب حذف المحتوى", 
@@ -210,7 +239,9 @@ table {
       },
       "case": {
         "title": "تفاصيل القضيّة",
-        "charge": "التهمة"
+        "charge": "التهمة",
+        "judge": "القاضي/ة",
+        "chargedUsing": "متهم باستعمال القوانين"
       }
     },
     "moreCases": "عرض شكاوى أخرى"
