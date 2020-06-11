@@ -41,15 +41,15 @@
       <div class="mw8 center ph-ns">
         <h1 class>{{ $t("details.header") }}</h1>
 
-        <div class="cf ph2-ns bt bw1 b--light-silver">
+        <div class="cf ph2-ns bt bw1 b--light-silver pb5">
           <div class="fs w-100 w-30-ns">
-            <h3 class>{{ $t("details.complaint.investigation.title") }}</h3>
+            <h2 class>{{ $t("details.complaint.investigation.title") }}</h2>
           </div>
-          <div class="fs w-100 w-60-ns f3 pv3-ns pv0">
+          <div class="fs w-100 w-60-ns f3 pv0 pv2-ns">
             <table class="w-100" cellspacing="0">
               <tbody class="cf">
                 <template v-for="(attr, index) in investigationAttributes">
-                  <tr class="bb bw1 b--light-silver v-top " v-if="case_[attr]" :key="index">
+                  <tr class="bb bw1 b--light-silver v-mid" v-if="case_[attr]" :key="index">
                     <td
                       class="f4 w-100 w-30-ns messiri pv2"
                     >{{ $t(`details.complaint.investigation.${attr}`) }}</td>
@@ -58,6 +58,26 @@
                     </td>
                   </tr>
                 </template>
+                <tr v-if="case_.chargedUsing" class="v-mid">
+                  <td
+                    class="f4 w-100 w-30-ns messiri pv2"
+                  >{{ $t(`details.complaint.investigation.chargedUsing`) }}</td>
+                  <td class="f3 w-100 w-70-ns pv2">
+                    <!-- {{case_.chargedUsing}} -->
+                    <ul class="list pa0 ma0">
+                      <li v-for="law in case_.chargedUsing" :key="law.id">
+                        <a
+                          :href="law.url"
+                          class="link underline-hover muhal-purple"
+                        >{{ law.law }}: {{ law.number }} {{ law.name }} >></a>
+                      </li>
+                    </ul>
+                    <!-- <span v-for="(law, index) in case_.chargedUsing" :key="law.id">
+                      <a :href="law.url">{{ law }}</a>
+                      <span v-if="index < case_.chargedUsing.length - 1">{{ $t(',') }}</span>
+                    </span>-->
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -65,9 +85,8 @@
             <!-- HACK to avoid putting pr6 on the parent element -->
           </div>
         </div>
-        <!-- <div class="bt bw1 b--light-silver">
-          <h3>description</h3>
-        </div>-->
+
+
       </div>
     </div>
 
@@ -77,7 +96,7 @@
         :to="localePath('/cases')"
         class="f3 link dim br-pill ph4 pv2 mb2 dib white bg-muhal-pink"
       >{{ $t("moreCases") }}</nuxt-link>
-    </div>f
+    </div>
   </div>
 </template>
 
@@ -104,12 +123,17 @@ export default {
   },
   computed: {
     investigationAttributes: function() {
-      return ["dateOfContact", "dateOfInvestigation", "stationName"]
-      //  {
-      //   dateOfContact: this.$t("dateOfContact"),
-      //   dateOfInvestigation: this.$t("dateOfContact"),
-      //   stationName: this.$t("dateOfContact")
-      // }
+      return [
+        "dateOfContact",
+        "dateOfInvestigation",
+        "stationName",
+        "detained",
+        "detainedFor",
+        "contentDeletion",
+        "pledgeSigning",
+        "reconciliation",
+        "contactedVia"
+      ]
     }
   }
 }
@@ -143,9 +167,19 @@ table {
           "title": "Complaint details",
           "dateOfContact": "Date of contact",
           "dateOfInvestigation": "Date of investigation",
-          "stationName": "Station name"
-          },
-        "title1": "Complaint details"
+          "stationName": "Station name",
+          "chargedUsing": "Charged using",
+          "detained": "Detained?",
+          "detainedFor": "Detention length (days)",
+          "contentDeletion": "Request to delete content?",
+          "pledgeSigning": "Requested to sign a pleadge",
+          "reconciliation": "Reconciliation?",
+          "contactedVia": "Contacted via"
+          }
+      },
+      "case": {
+        "title": "Case details",
+        "charge": "Charge"
       }
     },
     "moreCases": "View more cases"
@@ -164,8 +198,19 @@ table {
           "title": "تفاصيل الشكوى",
           "dateOfContact": "تاريخ الاتصال",
           "dateOfInvestigation": "تاريخ التحقيق",
-          "stationName": "إسم المخفر"
+          "stationName": "إسم المخفر",
+          "chargedUsing": "متهم باستعمال القوانين",
+          "detained": "اعتقل؟",
+          "detainedFor": "أيّام الإعتقال",
+          "contentDeletion": "طُلب حذف المحتوى", 
+          "pledgeSigning": "طُلب توقيع تعهّد",
+          "reconciliation": "مصالحة؟",
+          "contactedVia": "وسيلة الاستدعاء"
           }
+      },
+      "case": {
+        "title": "تفاصيل القضيّة",
+        "charge": "التهمة"
       }
     },
     "moreCases": "عرض شكاوى أخرى"
