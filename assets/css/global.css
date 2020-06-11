@@ -42,3 +42,8 @@ h5,
 h6 {
   font-family: "El Messiri", sans-serif;
 }
+
+/* float start */
+.fs {
+  float: inline-start;
+}

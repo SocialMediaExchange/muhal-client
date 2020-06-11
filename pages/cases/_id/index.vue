@@ -35,11 +35,9 @@
       <div class="mw8 center ph-ns">
         <h1 class>{{ $t("details.header") }}</h1>
 
-        <div class="cf ph2-ns bt bw1 b--light-silver pb5">
-          <div class="fs w-100 w-30-ns">
-            <h2 class>{{ $t("details.complaint.title") }}</h2>
-          </div>
-          <div class="fs w-100 w-60-ns f3 pv0 pv2-ns">
+        <DetailSection>
+          <template v-slot:title>{{ $t("details.complaint.title") }}</template>
+          <template v-slot:content>
             <table class="w-100" cellspacing="0">
               <tbody class="cf">
                 <template v-for="(attr, index) in investigationAttributes">
@@ -50,17 +48,12 @@
                 </template>
               </tbody>
             </table>
-          </div>
-          <div class="fs w-100 w-10-ns">
-            <!-- HACK to avoid putting pr6 on the parent element -->
-          </div>
-        </div>
+          </template>
+        </DetailSection>
 
-        <div class="cf ph2-ns bt bw1 b--light-silver pb5">
-          <div class="fs w-100 w-30-ns">
-            <h2 class>{{ $t("details.case.title") }}</h2>
-          </div>
-          <div class="fs w-100 w-60-ns f3 pv0 pv2-ns">
+        <DetailSection>
+          <template v-slot:title>{{ $t("details.case.title") }}</template>
+          <template v-slot:content>
             <table class="w-100" cellspacing="0">
               <tbody class="cf">
                 <DetailTableRow v-if="case_.judge">
@@ -96,11 +89,15 @@
                 </template>
               </tbody>
             </table>
-          </div>
-          <div class="fs w-100 w-10-ns">
-            <!-- HACK to avoid putting pr6 on the parent element -->
-          </div>
-        </div>
+          </template>
+        </DetailSection>
+
+        <DetailSection>
+          <template v-slot:title>{{ $t("details.timeline.title") }}</template>
+          <template v-slot:content>
+            <span>a timeline of events</span>
+          </template>
+        </DetailSection>
       </div>
     </div>
 
@@ -116,6 +113,7 @@
 
 <script>
 import DetailTableRow from "~/components/DetailTableRow.vue"
+import DetailSection from "~/components/DetailSection.vue"
 
 export default {
   head() {
@@ -123,7 +121,7 @@ export default {
       title: "Case detail"
     }
   },
-  components: { DetailTableRow },
+  components: { DetailTableRow, DetailSection },
   async asyncData({ $axios, params }) {
     try {
       let case_ = await $axios.$get(`/cases/${params.id}`)
@@ -158,14 +156,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 table {
   border-collapse: collapse;
-}
-
-/* float start */
-.fs {
-  float: inline-start;
 }
 
 tr:last-child {
@@ -206,6 +199,9 @@ tr:last-child {
         "sentenced": "Sentenced?",
         "sentence": "Sentence",
         "inAbsentia": "In absentia?"
+      },
+      "timeline": {
+        "title": "Timeline"
       }
     },
     "moreCases": "View more cases"
@@ -240,7 +236,10 @@ tr:last-child {
         "sentenced": "تم الحكم؟",
         "sentence": "الحكم",
         "inAbsentia": "حكم غيابي؟"
-      }
+      },
+      "timeline": {
+        "title": "الخط الزمني"
+      }     
     },
     "moreCases": "عرض شكاوى أخرى"
   }
