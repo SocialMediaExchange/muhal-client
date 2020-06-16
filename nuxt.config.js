@@ -1,3 +1,4 @@
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
 export default {
   mode: 'universal',
@@ -60,7 +61,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://localhost:8000/api',
+    baseURL: process.env.BASE_API_URL,
   },
   /*
   ** Build configuration
