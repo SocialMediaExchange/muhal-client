@@ -66,7 +66,7 @@
                     >{{ `${case_.judge.legalEntity}${$t(',')} ${case_.judge.kaza}` }}</span>
                   </template>
                 </DetailTableRow>
-                <DetailTableRow v-if="case_.chargedUsing">
+                <DetailTableRow v-if="case_.chargedUsing.length > 0">
                   <template v-slot:title>{{ $t(`details.case.chargedUsing`) }}</template>
                   <template v-slot:content>
                     <ul class="list pa0 ma0">
@@ -138,6 +138,7 @@ export default {
   },
   computed: {
     investigationAttributes: function() {
+      // FIXME if none of the attributes have values, hide the entire section 
       return [
         "dateOfContact",
         "dateOfInvestigation",
@@ -151,13 +152,15 @@ export default {
       ]
     },
     caseAttributes: function() {
+      // FIXME if none of the attributes have values, hide the entire section 
       return ["charge", "bail", "sentenced", "sentence", "inAbsentia"]
     },
     timeline: function() {
+      // FIXME if none of the attributes have values, hide the entire section 
       return [
         ["dateOfPublication", this.case_.dateOfPublication],
         ["dateOfContact", this.case_.dateOfContact],
-        ["dateOfInvestigation", this.case_.dateOfInvestigation], 
+        ["dateOfInvestigation", this.case_.dateOfInvestigation],
         ["dateOfDetention", this.case_.dateOfDetention],
         ["dateOfHearing", this.case_.dateOfHearing],
         ["dateOfHearing2", this.case_.dateOfHearing2],

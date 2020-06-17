@@ -21,7 +21,7 @@ export default {
   computed: {
     datesOrdered: function() {
       return this.dates
-        .map(e => [e[0], new Date(e[1])])
+        .map(e => [e[0], e[1] ? new Date(e[1]) : null])
         .sort((date1, date2) => {
           if (date1[1] > date2[1]) {
             return 1
