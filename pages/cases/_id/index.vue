@@ -95,7 +95,7 @@
         <DetailSection>
           <template v-slot:title>{{ $t("details.timeline.title") }}</template>
           <template v-slot:content>
-            <span>a timeline of events</span>
+            <CaseTimeline :dates="timeline"></CaseTimeline>
           </template>
         </DetailSection>
       </div>
@@ -114,6 +114,7 @@
 <script>
 import DetailTableRow from "~/components/DetailTableRow.vue"
 import DetailSection from "~/components/DetailSection.vue"
+import CaseTimeline from "~/components/CaseTimeline.vue"
 
 export default {
   head() {
@@ -121,7 +122,7 @@ export default {
       title: "Case detail"
     }
   },
-  components: { DetailTableRow, DetailSection },
+  components: { DetailTableRow, DetailSection, CaseTimeline },
   async asyncData({ $axios, params }) {
     try {
       let case_ = await $axios.$get(`/cases/${params.id}`)
@@ -151,6 +152,18 @@ export default {
     },
     caseAttributes: function() {
       return ["charge", "bail", "sentenced", "sentence", "inAbsentia"]
+    },
+    timeline: function() {
+      return [
+        ["dateOfPublication", this.case_.dateOfPublication],
+        ["dateOfContact", this.case_.dateOfContact],
+        ["dateOfInvestigation", this.case_.dateOfInvestigation], 
+        ["dateOfDetention", this.case_.dateOfDetention],
+        ["dateOfHearing", this.case_.dateOfHearing],
+        ["dateOfHearing2", this.case_.dateOfHearing2],
+        ["dateOfRelease", this.case_.dateOfRelease],
+        ["dateOfRuling", this.case_.dateOfRuling]
+      ]
     }
   }
 }
