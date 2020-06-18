@@ -37,7 +37,8 @@ export default {
   ** Plugins to load before mounting the App 
   */
   plugins: [
-    { src: '~plugins/i18n.js' }
+    { src: '~plugins/i18n.js' },
+    { src: '~plugins/filters.js' }
   ],
   /*
   ** Nuxt.js dev-modules

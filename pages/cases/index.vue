@@ -1,5 +1,5 @@
 <template>
-  <div v-if="cases">
+  <div v-if="cases" class="flex flex-wrap w-80 center ph-ns pv4">
     <case-card v-for="case_ in cases" v-bind:key="case_.id" :case_="case_" />
   </div>
 </template>
