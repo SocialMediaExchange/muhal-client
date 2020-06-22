@@ -26,6 +26,14 @@
   background-color: hsla(344, 45%, 47%, 1);
 }
 
+.muhal-blue {
+  color: hsla(257, 26%, 27%, 1);
+}
+
+.bg-muhal-blue {
+  background-color: hsla(257, 26%, 27%, 1);
+}
+
 .markazi {
   font-family: "Markazi Text", serif;
 }

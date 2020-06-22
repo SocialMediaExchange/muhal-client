@@ -1,12 +1,12 @@
 <template>
-  <article class="w-100 w-30-ns br3 ma3 bg-muhal-grey">
+  <article class="w-100 w-30-ns grow br3 ma3 bg-muhal-grey b">
     <div class="br3 br--top mv0 pv2 ph3" v-bind:style="{ 'background-color': currentStatusColor }"></div>
-    <nuxt-link :to="localePath(`/cases/${case_.id}`)">
+    <nuxt-link :to="localePath(`/cases/${case_.id}`)" class="link no-underline hover-sliver muhal-blue">
       <div class="flex flex-wrap pa3 bt b--black-10 f4 fs-normal">
         <div
           class="w-third mb2"
-        >{{ case_.defendants.length > 1 ? $t('defendants') : $t('defendant') }}</div>
-        <div class="w-two-thirds mb1">
+        >{{ case_.defendants.length > 1 ? $t('defendants') : $t('defendant') }}:</div>
+        <div class="w-two-thirds mb2 ph2-ns">
           <ul class="list pa0 ma0">
             <li
               v-for="(defendant, index) in case_.defendants"
@@ -16,8 +16,8 @@
         </div>
         <div
           class="w-third mb1"
-        >{{ case_.plaintiffs.length > 1 ? $t('plaintiffs') : $t('plaintiff') }}</div>
-        <div class="w-two-thirds">
+        >{{ case_.plaintiffs.length > 1 ? $t('plaintiffs') : $t('plaintiff') }}:</div>
+        <div class="w-two-thirds ph2-ns">
           <ul class="list pa0 ma0">
             <li
               v-for="(plaintiff, index) in case_.plaintiffs"
@@ -25,8 +25,8 @@
             >{{ plaintiff.firstName }} {{ plaintiff.lastName }}</li>
           </ul>
         </div>
-        <div class="w-100 f5 measure-narrow">
-          <p>{{ case_.summary | truncate(90, 'read more...') }}</p>
+        <div class="w-100 f5 measure-narrow normal">
+          <p>{{ case_.summary | truncate(90, "...") }}</p>
         </div>
       </div>
     </nuxt-link>
@@ -74,14 +74,16 @@ export default {
     "defendant": "defendant",
     "defendants": "defendants",
     "plaintiff": "plaintiff",
-    "plaintiffs": "plaintiffs"
+    "plaintiffs": "plaintiffs",
+    "readMore": "... read more >>"
   },
   "ar": {
     ",": "،",
     "defendant": "المدعى عليه/ا",
     "defendants": "المدعى عليهمن",
     "plaintiff": "المدعي",
-    "plaintiffs": "المدعون"
+    "plaintiffs": "المدعون",
+    "readMore": "... قرائة المزيد >>"
   }
 }
 </i18n>

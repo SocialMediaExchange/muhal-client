@@ -35,12 +35,12 @@
       <div class="mw8 center ph-ns">
         <h1 class>{{ $t("details.header") }}</h1>
 
-        <DetailSection>
+        <DetailSection v-if="complaintDetailsExist">
           <template v-slot:title>{{ $t("details.complaint.title") }}</template>
           <template v-slot:content>
             <table class="w-100" cellspacing="0">
               <tbody class="cf">
-                <template v-for="(attr, index) in investigationAttributes">
+                <template v-for="(attr, index) in complaintAttributes">
                   <DetailTableRow v-if="case_[attr]" :key="index">
                     <template v-slot:title>{{ $t(`details.complaint.${attr}`) }}</template>
                     <template v-slot:content>{{ case_[attr] }}</template>
@@ -51,7 +51,7 @@
           </template>
         </DetailSection>
 
-        <DetailSection>
+        <DetailSection v-if="caseDetailsExist">
           <template v-slot:title>{{ $t("details.case.title") }}</template>
           <template v-slot:content>
             <table class="w-100" cellspacing="0">
@@ -119,7 +119,7 @@ import CaseTimeline from "~/components/CaseTimeline.vue"
 export default {
   head() {
     return {
-      title: "Case detail"
+      title: this.$t("caseDetails")
     }
   },
   components: { DetailTableRow, DetailSection, CaseTimeline },
@@ -137,8 +137,10 @@ export default {
     }
   },
   computed: {
-    investigationAttributes: function() {
-      // FIXME if none of the attributes have values, hide the entire section 
+    complaintDetailsExist: function() {
+      return this.complaintAttributes.reduce((attrA, attrB) => this.case_[attrA] || this.case_[attrB])
+    },
+    complaintAttributes: function() {
       return [
         "dateOfContact",
         "dateOfInvestigation",
@@ -151,12 +153,13 @@ export default {
         "contactedVia"
       ]
     },
+    caseDetailsExist: function() {
+      return this.caseAttributes.reduce((attrA, attrB) => this.case_[attrA] || this.case_[attrB])
+    },
     caseAttributes: function() {
-      // FIXME if none of the attributes have values, hide the entire section 
       return ["charge", "bail", "sentenced", "sentence", "inAbsentia"]
     },
     timeline: function() {
-      // FIXME if none of the attributes have values, hide the entire section 
       return [
         ["dateOfPublication", this.case_.dateOfPublication],
         ["dateOfContact", this.case_.dateOfContact],
@@ -186,6 +189,7 @@ tr:last-child {
 {
   "en": {
     ",": ",",
+    "caseDetails": "Case details",
     "lebanon": "Lebanon",
     "main": {
       "plaintiffs": "Plaintiffs",
@@ -224,13 +228,14 @@ tr:last-child {
   },
   "ar": {
     ",": "،",
+    "caseDetails": "تفاصيل الحالة",
     "lebanon": "لبنان",
     "main": {
       "plaintiffs": "المدّعوت",
       "defendants": "المدّعى عليهمن"
     },
     "details": {
-      "header": "تفاصيل الدعوى",
+      "header": "تفاصيل الحالة",
       "complaint": {
         "title": "تفاصيل الشكوى",
         "dateOfContact": "تاريخ الاتصال",

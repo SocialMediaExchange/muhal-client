@@ -10,7 +10,7 @@ import CaseCard from "~/components/CaseCard.vue"
 export default {
   head() {
     return {
-      title: "Case list"
+      title: this.$t("caseList")
     }
   },
   components: {
@@ -39,3 +39,16 @@ export default {
 
 <style>
 </style>
+
+<i18n>
+{      
+  "en": {
+    ",": ",", 
+    "caseList": "Case List"
+  },
+  "ar": {
+    ",": "،",
+    "caseList": "لائحة القضايا"
+  }
+}
+</i18n>

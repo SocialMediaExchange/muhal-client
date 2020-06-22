@@ -32,9 +32,6 @@ export default {
           }
         })
     },
-    dateRange: function() {
-      return 
-    }
   },
   filters: {
     formatDate: function(d) {
