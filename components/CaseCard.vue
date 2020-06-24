@@ -1,5 +1,5 @@
 <template>
-  <article class="w-100 w-30-ns grow br3 ma3 bg-muhal-grey b">
+  <article class="w-100 w-30-ns grow br3 bg-muhal-grey b">
     <div class="br3 br--top mv0 pv2 ph3" v-bind:style="{ 'background-color': currentStatusColor }"></div>
     <nuxt-link :to="localePath(`/cases/${case_.id}`)" class="link no-underline hover-sliver muhal-blue">
       <div class="flex flex-wrap pa3 bt b--black-10 f4 fs-normal">

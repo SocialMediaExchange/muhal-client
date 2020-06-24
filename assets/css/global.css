@@ -55,3 +55,11 @@ h6 {
 .fs {
   float: inline-start;
 }
+
+.p-start-0 {
+  padding-block-start: 0;
+}
+
+.p-end-1 {
+  padding-inline-end: 1rem;
+}

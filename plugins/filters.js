@@ -5,3 +5,7 @@ Vue.filter("truncate", function(text, length, clamp) {
   var sliced = text.slice(0, length)
   return text.length > length ? `${sliced}${clamp}` : sliced
 })
+
+Vue.filter("formatDate", function(date) {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+})
