@@ -7,5 +7,5 @@ Vue.filter("truncate", function(text, length, clamp) {
 })
 
 Vue.filter("formatDate", function(date) {
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+  return date.toISOString().split("T")[0]
 })
