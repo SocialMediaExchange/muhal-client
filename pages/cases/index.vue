@@ -186,22 +186,24 @@ export default {
       return lastCase ? lastCase["dateOfPublication"] : new Date(2010, 1, 1)
     },
     filteredCases: function() {
-      return this.cases.filter(case_ => { 
-      // console.log(case_.summary)
-       console.log(case_.summary.includes(this.filter.searchText))
-       return case_.summary.includes(this.filter.searchText) || case_.status
-        // this.filter.searchText ? case_.summary.includes(this.filter.searchText) : true
-        //       ||
-        //       case_.judge ?  typeComplaints: true,
-        // typeCases: true,
-        // statusOpen: true,
-        // statusClosed: true,
-        // statusPending: true,
-        // plaintiffs: "all",
-        // platforms: "all",
-        // fromDateOfPublication: "2010-01-01",
-        // endDateOfPublication: new Date().toISOString().split("T")[0]
-      })
+      return this.cases.filter(case_ => {
+       return case_.summary.includes(this.filter.searchText) && (
+         (case_.judge === null) === this.filter.typeComplaints ||
+         (case_.judge !== null) === this.filter.typeCases 
+       ) && (
+         (case_.currentStatus === 'open') === this.filter.statusOpen ||
+         (case_.currentStatus === 'closed') === this.filter.statusClosed ||
+         (case_.currentStatus === 'pending') === this.filter.statusPending
+       ) && (
+         this.filter.plaintiffs === 'all' || 
+         case_.plaintiffs.map(case_ => case_.id).includes(this.filter.plaintiffs)
+       ) && (
+         this.filter.platforms === 'all' || 
+         case_.platform === this.filter.platforms
+       ) && (
+         this.filter.fromDateOfPublication <= case_.dateOfPublication && 
+         this.filter.endDateOfPublication >= case_.dateOfPublication
+       )})
     }
   }
 }
@@ -248,8 +250,8 @@ export default {
       "caseOpen": "مفتوحة",
       "caseClosed": "مغلقة",
       "casePending": "بانتظار استئناف أو اعتراض",
-      "plaintiffs": "المدّعون",
-      "allPlaintiffs": "كل المدّعون",
+      "plaintiffs": "المُدّعون",
+      "allPlaintiffs": "كل المُدّعون",
       "platforms": "المنصّات",
       "allPlatforms": "كل المنصّات",
       "publicationDate": "تاريخ النشر",

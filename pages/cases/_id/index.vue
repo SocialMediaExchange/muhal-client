@@ -2,7 +2,7 @@
   <div v-if="id" id="case" class="muhal-purple">
     <div id="top" class="mw8 center ph-ns pv4">
       <!-- FIXME lebanon is hardcoded here... -->
-      <p class="f4">{{ $t('lebanon') }} | {{ case_.dateOfContact }}</p>
+      <p class="f4">&#x1F1F1;&#x1F1E7; {{ $t('lebanon') }} | {{ case_.dateOfContact }}</p>
 
       <!-- the defendant -->
       <h1>
@@ -115,6 +115,11 @@
 import DetailTableRow from "~/components/DetailTableRow.vue"
 import DetailSection from "~/components/DetailSection.vue"
 import CaseTimeline from "~/components/CaseTimeline.vue"
+
+const countryFlag = {
+  "lb": "&#x1F1F1;&#x1F1E7;",
+  "jo": "&#x1F1EF;&#x1F1F4;",
+}
 
 export default {
   head() {

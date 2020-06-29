@@ -29,6 +29,11 @@
         </div>
         <div class="w-100 f5 measure-narrow normal">
           <p>{{ case_.summary | truncate(90, "...") }}</p>
+          <!-- <p>{{ case_.currentStatus }}</p>
+          <p>{{ case_.judge }}</p>
+          <p>{{ case_.platformDisplay }}</p>
+          <p>{{ case_.dateOfPublication }}</p> -->
+          <!-- TODO how should the status of the case be rendered? what other fields should be on the card -->
         </div>
       </div>
     </nuxt-link>
@@ -40,8 +45,7 @@
 const currentStatusColor = {
   open: "#f89d61",
   closed: "#3d3356",
-  abstenia: "#f89d61",
-  na: "hsla(210, 41%, 50%, 1)"
+  pending: "hsla(210, 41%, 50%, 1)"
 }
 
 export default {
