@@ -1,6 +1,7 @@
 <template>
   <header class="w-100 ph5 pv4">
-    <nav class="f6 fw6 ttu tracked">
+    <nav class="f6 fw6 ttu tracked cover">
+      <!-- <img src="~assets/nav.svg" class="static" alt="cover"> -->
       <nuxt-link :to="localePath('/')" class="ph4 dib v-mid f2 link near-black">
         <img
           src="~assets/logo.svg"
@@ -11,7 +12,11 @@
       <nuxt-link
         :to="localePath('/cases')"
         class="ph4 dib v-mid f2 link near-black"
-      >{{ $t('cases') }}</nuxt-link>  
+      >{{ $t('cases') }}</nuxt-link>
+      <nuxt-link
+        :to="localePath('/about')"
+        class="ph4 dib v-mid f2 link near-black"
+      >{{ $t('about') }}</nuxt-link>
       <!-- FIXME it probably shouldn't be called "cases" -->
       <nuxt-link :to="switchLocalePath(otherLanguage.code)">{{ otherLanguage.label }}</nuxt-link>
     </nav>
@@ -21,9 +26,7 @@
 <script>
 export default {
   data() {
-    return {
-      license: "CC-BY"
-    }
+    return {}
   },
   computed: {
     otherLanguage: function() {
@@ -38,8 +41,13 @@ export default {
 <style scoped>
 header {
   background-color: hsla(42, 91%, 78%, 1);
+  background-image: url("~assets/nav.svg");
+  background-size: auto 100%;
+  background-position-x: right;
+  background-repeat: no-repeat;
   color: #3d3356;
 }
+
 .mirror {
   transform: scaleX(-1);
 }
@@ -48,10 +56,12 @@ header {
 <i18n>
 {
   "en": {
-    "cases": "cases"
+    "cases": "cases",
+    "about": "about"
   },
   "ar": {
-    "cases": "الملفّات"
+    "cases": "الملفّات",
+    "about": "عن مُحال"
   }
 }
 </i18n>

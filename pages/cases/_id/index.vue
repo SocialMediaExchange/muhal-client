@@ -1,6 +1,6 @@
 <template>
   <div v-if="id" id="case" class="muhal-purple">
-    <div id="top" class="mw8 center ph-ns pv4">
+    <div id="top" class="w-70 center ph-ns pv4">
       <!-- FIXME lebanon is hardcoded here... -->
       <p class="f4">&#x1F1F1;&#x1F1E7; {{ $t('lebanon') }} | {{ case_.dateOfContact }}</p>
 
