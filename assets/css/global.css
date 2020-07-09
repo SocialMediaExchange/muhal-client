@@ -18,6 +18,15 @@
   background-color: hsla(33, 15%, 88%, 1);
 }
 
+.muhal-grey-light {
+  color: hsla(240, 5%, 96%, 1);
+}
+
+.bg-muhal-grey-light {
+  
+  background-color: hsla(240, 5%, 96%, 1);
+}
+
 .muhal-pink {
   color: hsla(344, 45%, 47%, 1);
 }
@@ -33,6 +42,15 @@
 .bg-muhal-blue {
   background-color: hsla(257, 26%, 27%, 1);
 }
+
+.muhal-orange {
+  color: hsla(24, 92%, 68%, 1);
+}
+
+.bg-muhal-orange {
+  background-color: hsla(24, 92%, 68%, 1);
+}
+
 
 .markazi {
   font-family: "Markazi Text", serif;
