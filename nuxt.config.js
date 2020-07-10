@@ -103,5 +103,15 @@ export default {
       fallbackLocale: 'ar',
       detectBrowserLanguage: false,
     },
+    messages: {
+      en: {
+        ',': ',',
+        'muhal': 'Muhal'
+      },
+      ar: {
+        ',': '،',
+        'muhal': 'محال'
+      }
+    }
   }
 }
