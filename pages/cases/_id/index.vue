@@ -87,6 +87,12 @@
                     </template>
                   </DetailTableRow>
                 </template>
+                <DetailTableRow v-if="case_['judges']" :key="index">
+                  <template v-slot:title>{{ $t(`details.case.judges`) }}</template>
+                  <template v-slot:content>
+                    <span v-if="case_[attr]">{{ case_[attr] }}</span>
+                  </template>
+                </DetailTableRow>
               </tbody>
             </table>
           </template>
@@ -117,8 +123,8 @@ import DetailSection from "~/components/DetailSection.vue"
 import CaseTimeline from "~/components/CaseTimeline.vue"
 
 const countryFlag = {
-  "lb": "&#x1F1F1;&#x1F1E7;",
-  "jo": "&#x1F1EF;&#x1F1F4;",
+  lb: "&#x1F1F1;&#x1F1E7;",
+  jo: "&#x1F1EF;&#x1F1F4;"
 }
 
 export default {
@@ -143,7 +149,9 @@ export default {
   },
   computed: {
     complaintDetailsExist: function() {
-      return this.complaintAttributes.reduce((attrA, attrB) => this.case_[attrA] || this.case_[attrB])
+      return this.complaintAttributes.reduce(
+        (attrA, attrB) => this.case_[attrA] || this.case_[attrB]
+      )
     },
     complaintAttributes: function() {
       return [
@@ -159,7 +167,9 @@ export default {
       ]
     },
     caseDetailsExist: function() {
-      return this.caseAttributes.reduce((attrA, attrB) => this.case_[attrA] || this.case_[attrB])
+      return this.caseAttributes.reduce(
+        (attrA, attrB) => this.case_[attrA] || this.case_[attrB]
+      )
     },
     caseAttributes: function() {
       return ["charge", "bail", "sentenced", "sentence", "inAbsentia"]

@@ -22,6 +22,8 @@
     "vue-i18n": "^8.18.1"
   },
   "devDependencies": {
-    "postcss-bidirection": "^2.7.0"
+    "node-sass": "^4.14.1",
+    "postcss-bidirection": "^2.7.0",
+    "sass-loader": "^9.0.2"
   }
 }

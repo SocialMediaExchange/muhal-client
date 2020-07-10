@@ -1,5 +1,5 @@
 <template>
-  <div id="main" :key="$i18n.locale" class="markazi"> 
+  <div id="main" :key="$i18n.locale" class="markazi bg-muhal-grey-light"> 
     <!-- HACK :key change forces re-rendering of the page based on the locale  -->
     <Header />
     <div>

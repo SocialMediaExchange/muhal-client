@@ -1,27 +1,36 @@
 <template>
   <div class="cf w-80 center">
-    <div class="fs f4 w-20">
-      <div class="mh3 mv4 pa3 bg-muhal-grey br2">
+    <div class="fs f4 w-30">
+      <div class="mh3 mv4 pa3 bg-white br2 muhal-purple">
         <h2>{{ $t("filterCases.title") }}</h2>
         <form @submit.prevent="updateFilter">
-          <label for="text-content">
-            <input
-              type="search"
-              id="text-content"
-              class="w-100 br4 pa2 bw0"
-              :placeholder="$t('filterCases.searchContent')"
-              v-model="filter.searchText"
-            />
-          </label>
-
+          <fieldset class="bw0 mv3">
+            <label for="text-content">
+              <input
+                type="search"
+                id="text-content"
+                class="w-100 br2 pa2 ba b--muhal-blue"
+                :placeholder="$t('filterCases.searchContent')"
+                v-model="filter.searchText"
+              />
+            </label>
+          </fieldset>
           <!-- case types  -->
           <fieldset class="bw0 mv3">
             <legend class="fw7">{{ $t("filterCases.caseType") }}</legend>
-            <label for="complaints">
+            <label
+              for="complaints"
+              class="checkbox-label"
+              v-bind:class="{ 'checkbox-label-selected': filter.typeComplaints }"
+            >
               <input type="checkbox" id="complaints" v-model="filter.typeComplaints" />
               {{ $t("filterCases.complaints") }}
             </label>
-            <label for="lawsuits" class>
+            <label
+              for="lawsuits"
+              class="checkbox-label"
+              v-bind:class="{ 'checkbox-label-selected': filter.typeCases }"
+            >
               <input type="checkbox" id="lawsuits" v-model="filter.typeCases" />
               {{ $t("filterCases.lawsuits") }}
             </label>
@@ -30,15 +39,27 @@
           <!-- case status  -->
           <fieldset class="bw0 mv3">
             <legend class="fw7">{{ $t("filterCases.caseStatus") }}</legend>
-            <label for="case-open" class="db">
+            <label
+              for="case-open"
+              class="checkbox-label"
+              v-bind:class="{ 'checkbox-label-selected': filter.statusOpen }"
+            >
               <input type="checkbox" id="case-open" v-model="filter.statusOpen" />
               {{ $t("filterCases.caseOpen") }}
             </label>
-            <label for="case-closed" class="db">
+            <label
+              for="case-closed"
+              class="checkbox-label"
+              v-bind:class="{ 'checkbox-label-selected': filter.statusClosed }"
+            >
               <input type="checkbox" id="case-closed" v-model="filter.statusClosed" />
               {{ $t("filterCases.caseClosed") }}
             </label>
-            <label for="case-closed" class="db">
+            <label
+              for="case-closed"
+              class="checkbox-label"
+              v-bind:class="{ 'checkbox-label-selected': filter.statusPending }"
+            >
               <input type="checkbox" id="case-pending" v-model="filter.statusPending" />
               {{ $t("filterCases.casePending") }}
               <!-- FIXME ensure that we're using the correct statuses -->
@@ -55,7 +76,10 @@
                 class="w-100"
                 v-model="filter.plaintiffs"
               >
-                <option selected value="all">--> {{ $t("filterCases.allPlaintiffs") }}</option>
+                <option
+                  selected
+                  value="all"
+                >--> {{ $t("filterCases.allPlaintiffs") }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8964;</option>
                 <option
                   v-for="plaintiff in plaintiffs"
                   :key="plaintiff.id"
@@ -75,7 +99,10 @@
                 class="w-100"
                 v-model="filter.platforms"
               >
-                <option selected value="all">--> {{ $t("filterCases.allPlatforms") }}</option>
+                <option
+                  selected
+                  value="all"
+                >--> {{ $t("filterCases.allPlatforms") }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8964;</option>
                 <option
                   v-for="platform in platforms"
                   :key="platform[0]"
@@ -88,7 +115,7 @@
           <!-- publication date options -->
           <fieldset class="bw0 mv3">
             <legend class="fw7">{{ $t("filterCases.publicationDate") }}</legend>
-            <label for="publication-date" class="db">
+            <!-- <label for="publication-date" class="db">
               {{ $t("filterCases.start") }}
               <input
                 type="date"
@@ -109,13 +136,31 @@
                 v-model="filter.endDateOfPublication"
                 class="bw0 ma1"
               />
-            </label>
+            </label>-->
+            <input
+              type="date"
+              name="start-date"
+              :min="earliestCaseDate"
+              :max="new Date() | formatDate"
+              v-model="filter.fromDateOfPublication"
+              class="bw0 ma1 f5"
+            />
+            <input
+              type="date"
+              name="end-date"
+              :min="earliestCaseDate"
+              :max="new Date() | formatDate"
+              v-model="filter.endDateOfPublication"
+              class="bw0 ma1 f5"
+            />
           </fieldset>
         </form>
-        <h2 class>{{ caseCount }} {{ $t("filterCases.cases") }}</h2>
       </div>
     </div>
-    <div v-if="cases" class="fs w-80 flex flex-wrap mv4">
+    <div v-if="cases" class="fs w-70 flex flex-wrap mv4">
+      <div class="w-100 ph3">
+        <h2 class>{{ caseCount }} {{ $t("filterCases.cases") }}</h2>
+      </div>
       <case-card v-for="case_ in filteredCases" v-bind:key="case_.id" :case_="case_" />
     </div>
   </div>
@@ -135,7 +180,7 @@ export default {
   },
   async asyncData({ $axios, params }) {
     let filter = {
-      searchText: '',
+      searchText: "",
       typeComplaints: true,
       typeCases: true,
       statusOpen: true,
@@ -187,29 +232,99 @@ export default {
     },
     filteredCases: function() {
       return this.cases.filter(case_ => {
-       return case_.summary.includes(this.filter.searchText) && (
-         (case_.judge === null) === this.filter.typeComplaints ||
-         (case_.judge !== null) === this.filter.typeCases 
-       ) && (
-         (case_.currentStatus === 'open') === this.filter.statusOpen ||
-         (case_.currentStatus === 'closed') === this.filter.statusClosed ||
-         (case_.currentStatus === 'pending') === this.filter.statusPending
-       ) && (
-         this.filter.plaintiffs === 'all' || 
-         case_.plaintiffs.map(case_ => case_.id).includes(this.filter.plaintiffs)
-       ) && (
-         this.filter.platforms === 'all' || 
-         case_.platform === this.filter.platforms
-       ) && (
-         this.filter.fromDateOfPublication <= case_.dateOfPublication && 
-         this.filter.endDateOfPublication >= case_.dateOfPublication
-       )})
+        return (
+          case_.summary.includes(this.filter.searchText) &&
+          ((case_.judge === null) === this.filter.typeComplaints ||
+            (case_.judge !== null) === this.filter.typeCases) &&
+          ((case_.currentStatus === "open") === this.filter.statusOpen ||
+            (case_.currentStatus === "closed") === this.filter.statusClosed ||
+            (case_.currentStatus === "pending") ===
+              this.filter.statusPending) &&
+          (this.filter.plaintiffs === "all" ||
+            case_.plaintiffs
+              .map(case_ => case_.id)
+              .includes(this.filter.plaintiffs)) &&
+          (this.filter.platforms === "all" ||
+            case_.platform === this.filter.platforms) &&
+          this.filter.fromDateOfPublication <= case_.dateOfPublication &&
+          this.filter.endDateOfPublication >= case_.dateOfPublication
+        )
+      })
     }
   }
 }
 </script>
 
-<style>
+<style >
+[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border: solid 1px hsla(257, 26%, 27%, 1);
+  margin-right: 8px;
+  position: relative;
+  vertical-align: text-top;
+  border-radius: 15%;
+}
+
+[type="checkbox"]:checked {
+  border-color: hsla(24, 92%, 68%, 1);
+}
+
+[type="checkbox"]:checked::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: hsla(24, 92%, 68%, 1);
+  position: absolute;
+  border-radius: 15%;
+  top: 2px;
+  left: 2px;
+}
+
+.checkbox-label {
+  display: block;
+  margin: 0.7rem 0;
+  padding: 0.5rem;
+  border: solid 1px white;
+  background-color: hsla(240, 5%, 96%, 1);
+  border-radius: 0.2rem;
+}
+
+.checkbox-label-selected {
+  background-color: white;
+  border: solid 1px hsla(24, 92%, 68%, 1);
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: solid 1px hsla(24, 92%, 68%, 1);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 0.2rem;
+  /* background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/43/Octicons-chevron-down.svg'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 5%;*/
+}
+
+[type="date"] {
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+  border: solid 1px hsla(24, 92%, 68%, 1);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 0.2rem;
+}
 </style>
 
 <i18n>
