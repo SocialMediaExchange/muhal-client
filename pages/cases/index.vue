@@ -1,6 +1,6 @@
 <template>
   <div class="cf w-80 center">
-    <div class="fs f4 w-30">
+    <div id="filter" class="fs w-50-m w-30-ns f4">
       <div class="mh3 mv4 pa3 bg-white br2 muhal-purple">
         <h2>{{ $t("filterCases.title") }}</h2>
         <form @submit.prevent="updateFilter">
@@ -157,10 +157,20 @@
         </form>
       </div>
     </div>
-    <div v-if="cases" class="fs w-70 flex flex-wrap mv4">
+    <div v-if="cases" class="fs w-50-m w-70-ns flex flex-wrap mv4">
       <div class="w-100 ph3">
         <h2 class>{{ caseCount }} {{ $t("filterCases.cases") }}</h2>
+        <!-- <div class="dt w3">
+        <span class="br-100 bg-muhal-purple dtc h3"></span>
       </div>
+      <div class="dt w3">
+        <span class="br-100 bg-muhal-orange dtc h3"></span>
+      </div>
+      <div class="dt w3">
+        <span class="br-100 bg-muhal-pink dtc h3"></span>
+        </div>-->
+      </div>
+
       <case-card v-for="case_ in filteredCases" v-bind:key="case_.id" :case_="case_" />
     </div>
   </div>
@@ -356,7 +366,7 @@ select {
     ",": "،",
     "caseList": "لائحة الحالات",
     "filterCases": {
-      "title": "انتقاء الحالات",
+      "title": "انتقاء حالات",
       "searchContent": "البحث...",
       "caseType": "نوع الحالة",
       "complaints": "شكاوى",

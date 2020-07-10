@@ -24,8 +24,10 @@
           v-for="(plaintiff, index) in case_.plaintiffs"
           :key="plaintiff.id"
         >
-          {{ plaintiff.firstName }} {{ plaintiff.lastName }}<!--
-          --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}</span>
+          {{ plaintiff.firstName }} {{ plaintiff.lastName }}
+          <!--
+          -->
+          <span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}</span>
         </span>
       </h1>
       <p class="f4">{{ case_.charge }}</p>

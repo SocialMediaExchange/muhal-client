@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="sendReport">
+  <form @submit.prevent="submitReport">
     <label class="db">
       {{ $t("plaintiff") }}
       <input type="text" v-model="plaintiff" class="db" />
@@ -18,9 +18,10 @@
         rows="6"
         name="description"
         placeholder
-        v-model="defendant"
+        v-model="whatHappened"
       ></textarea>
     </label>
+    <input type="button" :value="$t('submit')" @click="submitReport"/>
   </form>
 </template>
 <script>
@@ -31,7 +32,14 @@ export default {
   },
   data() {
     return {
-      plaintiff: null
+      plaintiff: null,
+      defendant: null,
+      whatHappened: null
+    }
+  },
+  methods: {
+    submitReport: function() {
+      console.log(this.plaintiff, this.defendant, this.whatHappened)
     }
   },
   computed: {}
@@ -46,12 +54,14 @@ export default {
   "en": {
     "plaintiff": "Plaintiff",
     "defendant": "Defendant",
-    "whatHappened": "What happened?"
+    "whatHappened": "What happened?",
+    "submit": "Submit report"
   },
   "ar": {
     "plaintiff": "الجهة المدّعية",
     "defendant": "المدّعى عليه",
-    "whatHappened": "ما الذي حصل؟"
+    "whatHappened": "ما الذي حصل؟",
+    "submit": "إرسال مساهمة"
   }
 }
 </i18n>
