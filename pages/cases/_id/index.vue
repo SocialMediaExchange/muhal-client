@@ -279,7 +279,7 @@ tr:last-child {
         "title": "الخط الزمني"
       }     
     },
-    "moreCases": "عرض شكاوى أخرى"
+    "moreCases": "عرض حالات أخرى"
   }
 }
 </i18n>

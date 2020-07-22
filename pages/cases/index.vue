@@ -1,7 +1,7 @@
 <template>
-  <div class="cf w-80 center">
+  <div class="cf w-100">
     <div id="filter" class="fs w-50-m w-30-ns f4">
-      <div class="mh3 mv4 pa3 bg-white br2 muhal-purple">
+      <div class="pa4 bg-white muhal-purple">
         <h2>{{ $t("filterCases.title") }}</h2>
         <form @submit.prevent="updateFilter">
           <fieldset class="bw0 mv3">
@@ -143,7 +143,7 @@
               :min="earliestCaseDate"
               :max="new Date() | formatDate"
               v-model="filter.fromDateOfPublication"
-              class="bw0 ma1 f5"
+              class="bw0 ma1"
             />
             <input
               type="date"
@@ -151,13 +151,13 @@
               :min="earliestCaseDate"
               :max="new Date() | formatDate"
               v-model="filter.endDateOfPublication"
-              class="bw0 ma1 f5"
+              class="bw0 ma1"
             />
           </fieldset>
         </form>
       </div>
     </div>
-    <div v-if="cases" class="fs w-50-m w-70-ns flex flex-wrap mv4">
+    <div v-if="cases" id="cases" class="fs w-50-m w-70-ns flex flex-wrap pa4">
       <div class="w-100 ph3">
         <h2 class>{{ caseCount }} {{ $t("filterCases.cases") }}</h2>
         <!-- <div class="dt w3">
@@ -266,6 +266,10 @@ export default {
 </script>
 
 <style >
+#cases {
+  padding-end: 4rem;
+}
+
 [type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
