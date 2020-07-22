@@ -13,18 +13,23 @@
         <div class="flex flex-wrap pa3 bt b--black-10 f4 fs-normal">
           <div class="w-100 mb2">
             <ul class="list pa0 ma0">
-              <li v-for="(defendant, index) in case_.defendants" v-bind:key="index">
-                <span class="mv1 f2 fw6">{{ defendant.firstName }} {{ defendant.lastName }}</span>
+              <li class="fs" v-for="(defendant, index) in case_.defendants" v-bind:key="index">
+                <span class="mv1 f2 fw6">
+                  {{ defendant.firstName }} {{ defendant.lastName }}<!-- 
+            HACK skip the white space before the comma
+                  --><span v-if="index < case_.defendants.length - 1">{{ $t(',') }}&nbsp;</span>
+                </span>
               </li>
             </ul>
           </div>
           <div class="w-100 mb1 bg-muhal-grey-light pa3 f4">
             <span class="fw7">{{ case_.plaintiffs.length > 1 ? $t('plaintiffs') : $t('plaintiff') }}</span>
             <ul class="list pa0 ma0">
-              <li
-                v-for="(plaintiff, index) in case_.plaintiffs"
-                v-bind:key="index"
-              >{{ plaintiff.firstName }} {{ plaintiff.lastName }}</li>
+              <li class="fs" v-for="(plaintiff, index) in case_.plaintiffs" v-bind:key="index">
+                {{ plaintiff.firstName }} {{ plaintiff.lastName }}<!-- 
+            HACK skip the white space before the comma
+                --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}&nbsp;</span>
+              </li>
             </ul>
           </div>
           <div class="w-100 f5 measure-narrow normal">
