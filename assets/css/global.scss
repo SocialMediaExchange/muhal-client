@@ -1,18 +1,18 @@
 $muhal-white: hsla(240, 100%, 100%, 1);
 $muhal-grey-light: hsla(240, 5%, 96%, 1);
-$muhal-grey: hsla(33, 15%, 88%, 1); 
+$muhal-grey: hsla(33, 15%, 88%, 1);
+$muhal-grey-dark: hsla(253, 8%, 60%, 1);
 $muhal-purple: hsla(253, 24%, 27%, 1);
 $muhal-blue: hsla(257, 26%, 27%, 1);
 $muhal-orange: hsla(24, 92%, 68%, 1);
 $muhal-pink: hsla(344, 45%, 47%, 1);
-
 
 .muhal-white {
   color: $muhal-white;
 }
 
 .muhal-purple {
-  color: $muhal-purple ;
+  color: $muhal-purple;
 }
 
 .bg-muhal-purple  {
@@ -28,12 +28,19 @@ $muhal-pink: hsla(344, 45%, 47%, 1);
 }
 
 .muhal-grey-light {
-  color: $muhal-grey-light ;
+  color: $muhal-grey-light;
 }
 
 .bg-muhal-grey-light {
-  
   background-color: $muhal-grey-light;
+}
+
+.muhal-grey-dark {
+  color: $muhal-grey-dark;
+}
+
+.bg-muhal-grey-dark {
+  background-color: $muhal-grey-dark;
 }
 
 .muhal-pink {

@@ -1,116 +1,125 @@
 <template>
-  <div v-if="id" id="case" class="muhal-purple">
-    <div id="top" class="w-70 center ph-ns pv4">
-      <!-- FIXME lebanon is hardcoded here... -->
-      <p class="f4">&#x1F1F1;&#x1F1E7; {{ $t('lebanon') }} | {{ case_.dateOfContact }}</p>
-
-      <!-- the defendant -->
-      <h1>
-        {{ $t('main.defendants') }}
-        <span
-          v-for="(defendant, index) in case_.defendants"
-          :key="defendant.id"
-        >
-          {{ defendant.firstName }} {{ defendant.lastName }}<!-- 
-            HACK skip the white space before the comma
-          --><span v-if="index < case_.defendants.length - 1">{{ $t(',') }}</span>
-        </span>
-      </h1>
-
-      <!-- the plaintifs  -->
-      <h1>
-        {{ $t('main.plaintiffs') }}
-        <span
-          v-for="(plaintiff, index) in case_.plaintiffs"
-          :key="plaintiff.id"
-        >
-          {{ plaintiff.firstName }} {{ plaintiff.lastName }}
-          <!--
-          -->
-          <span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}</span>
-        </span>
-      </h1>
-      <p class="f4">{{ case_.charge }}</p>
-    </div>
-
-    <div id="bottom" class="bg-muhal-grey pa3">
-      <div class="mw8 center ph-ns">
-        <h1 class>{{ $t("details.header") }}</h1>
-
-        <DetailSection v-if="complaintDetailsExist">
-          <template v-slot:title>{{ $t("details.complaint.title") }}</template>
-          <template v-slot:content>
-            <table class="w-100" cellspacing="0">
-              <tbody class="cf">
-                <template v-for="(attr, index) in complaintAttributes">
-                  <DetailTableRow v-if="case_[attr]" :key="index">
-                    <template v-slot:title>{{ $t(`details.complaint.${attr}`) }}</template>
-                    <template v-slot:content>{{ case_[attr] }}</template>
-                  </DetailTableRow>
-                </template>
-              </tbody>
-            </table>
-          </template>
-        </DetailSection>
-
-        <DetailSection v-if="caseDetailsExist">
-          <template v-slot:title>{{ $t("details.case.title") }}</template>
-          <template v-slot:content>
-            <table class="w-100" cellspacing="0">
-              <tbody class="cf">
-                <DetailTableRow v-if="case_.judge">
-                  <template v-slot:title>{{ $t(`details.case.judge`) }}</template>
-                  <template v-slot:content>
-                    <span>{{ `${case_.judge.firstName} ${case_.judge.lastName}` }}</span>
-                    <br />
-                    <span
-                      class="b f4"
-                    >{{ `${case_.judge.legalEntity}${$t(',')} ${case_.judge.kaza}` }}</span>
-                  </template>
-                </DetailTableRow>
-                <DetailTableRow v-if="case_.chargedUsing.length > 0">
-                  <template v-slot:title>{{ $t(`details.case.chargedUsing`) }}</template>
-                  <template v-slot:content>
-                    <ul class="list pa0 ma0">
-                      <li v-for="law in case_.chargedUsing" :key="law.id">
-                        <a
-                          :href="law.url"
-                          class="link underline-hover muhal-purple"
-                        >{{ law.law }}: {{ law.number }} {{ law.name }} >></a>
-                      </li>
-                    </ul>
-                  </template>
-                </DetailTableRow>
-                <template v-for="(attr, index) in caseAttributes">
-                  <DetailTableRow v-if="case_[attr]" :key="index">
-                    <template v-slot:title>{{ $t(`details.case.${attr}`) }}</template>
-                    <template v-slot:content>
-                      <span v-if="case_[attr]">{{ case_[attr] }}</span>
-                    </template>
-                  </DetailTableRow>
-                </template>
-                <DetailTableRow v-if="case_['judges']" :key="index">
-                  <template v-slot:title>{{ $t(`details.case.judges`) }}</template>
-                  <template v-slot:content>
-                    <span v-if="case_[attr]">{{ case_[attr] }}</span>
-                  </template>
-                </DetailTableRow>
-              </tbody>
-            </table>
-          </template>
-        </DetailSection>
-
-        <DetailSection>
-          <template v-slot:title>{{ $t("details.timeline.title") }}</template>
-          <template v-slot:content>
-            <CaseTimeline :dates="timeline"></CaseTimeline>
-          </template>
-        </DetailSection>
+  <div v-if="id" id="case" class="f3 muhal-purple">
+    <!-- main section  -->
+    <div class="w-80 center mt5 mb3 bg-white br3 br--top overflow-hidden">
+      <div class="w-100" v-bind:style="{ 'background-color': currentStatusColor }">&nbsp;</div>
+      <div class="pa4">
+        <div class="w-100 cf overflow-visible">
+          <h1 class="mv0">
+            <ul class="list ph0 pb4 db">
+              <!-- <span v-for="defendant in case_.defendants" :key="defendant.id">{{defendant.firstName}} {{defendant.lastName}}</span> -->
+              <li v-for="(defendant, index) in case_.defendants" :key="defendant.id" class="fs">
+                {{ defendant.firstName }} {{ defendant.lastName }}
+                <!--HACK skip the white space before the comma
+                -->
+                <span v-if="index < case_.defendants.length - 1">{{ $t(',') }}&nbsp;</span>
+              </li>
+            </ul>
+          </h1>
+        </div>
+        <div class="cf w-100 db bb b--muhal-blue pv3">
+          <div class="fs w-100 w-20-ns pa2">
+            <div class="muhal-grey-dark">{{ $t('main.plaintiffs') }}</div>
+            <div class>
+              <span v-for="(plaintiff, index) in case_.plaintiffs" :key="plaintiff.id">
+                {{ plaintiff.firstName }} {{ plaintiff.lastName }}
+                <!--HACK skip the white space before the comma
+                -->
+                <span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}&nbsp;</span>
+              </span>
+            </div>
+          </div>
+          <div class="fs w-100 w-20-ns pa2">
+            <div class="muhal-grey-dark">{{ $t('country.label') }}</div>
+            <div class>{{ case_.country }} {{$t('country.lebanon')}} &#x1F1F1;&#x1F1E7;</div>
+          </div>
+          <div class="fs w-100 w-20-ns pa2">
+            <div class="muhal-grey-dark">{{ $t('main.platform') }}</div>
+            <div class>{{ case_.platformDisplay }}</div>
+          </div>
+          <div class="fs w-100 w-20-ns pa2">
+            <div class="muhal-grey-dark">{{ $t('main.dateOfPublication') }}</div>
+            <div class>{{ case_.dateOfPublication }}</div>
+          </div>
+          <div class="fs w-100 w-20-ns pa2">
+            <div class="muhal-grey-dark">{{ $t('main.currentStatus') }}</div>
+            <div class>{{ case_.currentStatus }}</div>
+          </div>
+        </div>
+        <div>
+          <h2>{{ $t('main.summary') }}</h2>
+          <div v-html="case_.summary"></div>
+        </div>
       </div>
     </div>
 
+    <!-- about the complaint  -->
+    <div class="flex flex-wrap w-80 center mv3 bg-white pa4">
+      <h2>{{ $t('details.complaint.title') }}</h2>
+      <div class="cf w-100">
+        <template v-for="(attr, index) in complaintAttributes">
+          <div class="fs w-100 w-20-ns pa2" v-if="case_[attr]" :key="index">
+            <div class="muhal-grey-dark">{{ $t(`details.complaint.${attr}`) }}</div>
+            <div class>{{ case_[attr] }}</div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- about the lawsuit  -->
+    <div v-if="complaintDetailsExist" class="w-80 center mv3 bg-white pa4">
+      <h2>{{ $t('details.case.title') }}</h2>
+
+      <div class="flex flex-wrap w-100">
+        <div class="fs w-100 pa2" v-if="case_.charge">
+          <div class="muhal-grey-dark">{{ $t(`details.case.charge`) }}</div>
+          <div class v-html="case_.charge"></div>
+        </div>
+        <div class="fs w-100 w-50-ns pa2" v-if="case_.chargedUsing">
+          <div class="muhal-grey-dark">{{ $t(`details.case.chargedUsing`) }}</div>
+          <div class>
+            <ul class="list pa0 ma0">
+              <li v-for="law in case_.chargedUsing" :key="law.id">
+                <a
+                  :href="law.url"
+                  class="link underline-hover muhal-purple"
+                >{{ law.law }}: {{ law.number }} {{ law.name }} >></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div v-if="case_.judges" class="fs w-100 w-50-ns pa2">
+          <div class="muhal-grey-dark">{{ $t(`details.case.judge`) }}</div>
+          <ul class="list pa0 ma0">
+            <li
+              v-for="judge in case_.judges"
+              :key="judge.id"
+            >{{ `${judge.firstName} ${judge.lastName} (${judge.legalEntity}${$t(',')} ${judge.kaza})` }}</li>
+          </ul>
+        </div>
+        <template v-for="(attr, index) in caseAttributes">
+          <div class="fs w-100 w-20-ns pa2" v-if="case_[attr]" :key="index">
+            <div class="muhal-grey-dark">{{ $t(`details.case.${attr}`) }}</div>
+            <div class>{{ case_[attr] }}</div>
+          </div>
+        </template>
+        <div class="fs w-100 pa2" v-if="case_.sentence">
+          <div class="muhal-grey-dark">{{ $t(`details.case.sentence`) }}</div>
+          <div class v-html="case_.sentence"></div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+    <div v-if="complaintDetailsExist" class="w-80 center mv3 bg-white pa4">
+      <h2>{{ $t('details.timeline.title') }}</h2>
+
+      <div class="flex flex-wrap w-100">
+        <h1>stuff</h1>
+      </div>
+      <div></div>
+    </div>
     <!-- more cases button  -->
-    <div class="mw8 center ph-ns pv4 tc">
+    <div v-if="caseDetailsExist" class="mw8 center ph-ns pv4 tc">
       <nuxt-link
         :to="localePath('/cases')"
         class="f3 link dim br-pill ph4 pv2 mb2 dib white bg-muhal-pink"
@@ -126,13 +135,19 @@ import CaseTimeline from "~/components/CaseTimeline.vue"
 
 const countryFlag = {
   lb: "&#x1F1F1;&#x1F1E7;",
-  jo: "&#x1F1EF;&#x1F1F4;"
+  jo: "&#x1F1EF;&#x1F1F4;",
+}
+
+const currentStatusColor = {
+  open: "#f89d61",
+  closed: "#3d3356",
+  pending: "hsla(210, 41%, 50%, 1)",
 }
 
 export default {
   head() {
     return {
-      title: this.$t("caseDetails")
+      title: this.$t("caseDetails"),
     }
   },
   components: { DetailTableRow, DetailSection, CaseTimeline },
@@ -146,16 +161,19 @@ export default {
   },
   data() {
     return {
-      id: null
+      id: null,
     }
   },
   computed: {
-    complaintDetailsExist: function() {
+    currentStatusColor: function () {
+      return currentStatusColor[this.case_.currentStatus]
+    },
+    complaintDetailsExist: function () {
       return this.complaintAttributes.reduce(
         (attrA, attrB) => this.case_[attrA] || this.case_[attrB]
       )
     },
-    complaintAttributes: function() {
+    complaintAttributes: function () {
       return [
         "dateOfContact",
         "dateOfInvestigation",
@@ -165,18 +183,18 @@ export default {
         "contentDeletion",
         "pledgeSigning",
         "reconciliation",
-        "contactedVia"
+        "contactedVia",
       ]
     },
-    caseDetailsExist: function() {
+    caseDetailsExist: function () {
       return this.caseAttributes.reduce(
         (attrA, attrB) => this.case_[attrA] || this.case_[attrB]
       )
     },
-    caseAttributes: function() {
-      return ["charge", "bail", "sentenced", "sentence", "inAbsentia"]
+    caseAttributes: function () {
+      return ["bail", "sentenced", "inAbsentia"] // "charge",  "sentence",
     },
-    timeline: function() {
+    timeline: function () {
       return [
         ["dateOfPublication", this.case_.dateOfPublication],
         ["dateOfContact", this.case_.dateOfContact],
@@ -185,10 +203,10 @@ export default {
         ["dateOfHearing", this.case_.dateOfHearing],
         ["dateOfHearing2", this.case_.dateOfHearing2],
         ["dateOfRelease", this.case_.dateOfRelease],
-        ["dateOfRuling", this.case_.dateOfRuling]
+        ["dateOfRuling", this.case_.dateOfRuling],
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -207,16 +225,24 @@ tr:last-child {
   "en": {
     ",": ",",
     "caseDetails": "Case details",
-    "lebanon": "Lebanon",
+    "country": {
+      "label": "Country",
+      "lebanon": "Lebanon",
+      "jordan": "jordan"
+    },
     "main": {
       "plaintiffs": "Plaintiffs",
       "defendants": "Defendants", 
-      "accusedOf": "Accused of"
+      "accusedOf": "Accused of",
+      "platform": "Platform",
+      "dateOfPublication": "Date of publication",
+      "currentStatus": "Current status",
+      "summary": "Summary"
     },
     "details": {
       "header": "Case details",
       "complaint": {
-        "title": "Complaint details",
+        "title": "About the complaint",
         "dateOfContact": "Date of contact",
         "dateOfInvestigation": "Date of investigation",
         "stationName": "Station name",
@@ -246,15 +272,23 @@ tr:last-child {
   "ar": {
     ",": "،",
     "caseDetails": "تفاصيل الحالة",
-    "lebanon": "لبنان",
+    "country": {
+      "label": "الدولة",
+      "lebanon": "لبنان",
+      "jordan": "الأردن"
+    },
     "main": {
-      "plaintiffs": "المدّعوت",
-      "defendants": "المدّعى عليهمن"
+      "plaintiffs": "الجهة المدّعية",
+      "defendants": "الجهة المدّعى عليها",
+      "platform": "المنصّة",
+      "dateOfPublication": "تاريخ النشر",
+      "currentStatus": "الوضع الحالي",
+      "summary": "الملخّص"
     },
     "details": {
       "header": "تفاصيل الحالة",
       "complaint": {
-        "title": "تفاصيل الشكوى",
+        "title": "عن الشكوى",
         "dateOfContact": "تاريخ الاتصال",
         "dateOfInvestigation": "تاريخ التحقيق",
         "stationName": "إسم المخفر",
@@ -266,7 +300,7 @@ tr:last-child {
         "contactedVia": "وسيلة الاستدعاء"
       },
       "case": {
-        "title": "تفاصيل القضيّة",
+        "title": "عن الدعوى",
         "charge": "التهمة",
         "judge": "القاضي/ة",
         "chargedUsing": "متهم باستعمال القوانين",
