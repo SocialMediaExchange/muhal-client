@@ -9,10 +9,8 @@
             <ul class="list ph0 pb4 db">
               <!-- <span v-for="defendant in case_.defendants" :key="defendant.id">{{defendant.firstName}} {{defendant.lastName}}</span> -->
               <li v-for="(defendant, index) in case_.defendants" :key="defendant.id" class="fs">
-                {{ defendant.firstName }} {{ defendant.lastName }}
-                <!--HACK skip the white space before the comma
-                -->
-                <span v-if="index < case_.defendants.length - 1">{{ $t(',') }}&nbsp;</span>
+                {{ defendant.firstName }} {{ defendant.lastName }}<!--HACK skip the white space before the comma
+                --><span v-if="index < case_.defendants.length - 1">{{ $t(',') }}&nbsp;</span>
               </li>
             </ul>
           </h1>
@@ -22,10 +20,8 @@
             <div class="muhal-grey-dark">{{ $t('main.plaintiffs') }}</div>
             <div class>
               <span v-for="(plaintiff, index) in case_.plaintiffs" :key="plaintiff.id">
-                {{ plaintiff.firstName }} {{ plaintiff.lastName }}
-                <!--HACK skip the white space before the comma
-                -->
-                <span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}&nbsp;</span>
+                {{ plaintiff.firstName }} {{ plaintiff.lastName }}<!--HACK skip the white space before the comma
+                --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}&nbsp;</span>
               </span>
             </div>
           </div>
@@ -110,16 +106,24 @@
       </div>
       <div></div>
     </div>
-    <div v-if="complaintDetailsExist" class="w-80 center mv3 bg-white pa4">
-      <h2>{{ $t('details.timeline.title') }}</h2>
 
-      <div class="flex flex-wrap w-100">
-        <h1>stuff</h1>
+    <!-- case timeline  -->
+    <div class="w-80 center mv3 bg-white pa4">
+      <h2>{{ $t('details.timeline.title') }}</h2>
+      <div class="w-100">
+        <ol id="timeline" class="list pa0">
+          <li v-for="(date, index) in datesOrdered" :key="index" class="event">
+            <div class="pb3">
+              <span class="muhal-grey-dark ttc">{{ $t(`details.timeline.${date[0]}`) }}</span>
+              <br />
+              {{ date[1] | formatDate }}
+            </div>
+          </li>
+        </ol>
       </div>
-      <div></div>
     </div>
     <!-- more cases button  -->
-    <div v-if="caseDetailsExist" class="mw8 center ph-ns pv4 tc">
+    <div class="mw8 center ph-ns pv4 tc">
       <nuxt-link
         :to="localePath('/cases')"
         class="f3 link dim br-pill ph4 pv2 mb2 dib white bg-muhal-pink"
@@ -206,18 +210,54 @@ export default {
         ["dateOfRuling", this.case_.dateOfRuling],
       ]
     },
+    datesOrdered: function () {
+      return this.timeline
+        .map((e) => [e[0], e[1] ? new Date(e[1]) : null])
+        .sort((date1, date2) => {
+          if (date1[1] > date2[1]) {
+            return 1
+          } else if (date1[1] < date2[1]) {
+            return -1
+          } else {
+            return 0
+          }
+        })
+    },
   },
 }
 </script>
 
-<style scoped>
-table {
-  border-collapse: collapse;
+<style scoped lang="scss">
+$muhal-blue: hsla(257, 26%, 27%, 1);
+$muhal-grey-dark: hsla(253, 8%, 60%, 1);
+$muhal-grey-light: hsla(240, 5%, 96%, 1);
+
+#timeline {
+  position: relative;
+  &::before {
+    content: "";
+    width: 1px;
+    background-color: $muhal-grey-dark;
+    position: absolute;
+    inset: 0;
+  }
 }
 
-tr:last-child {
-  border: 0;
+.event {
+  position: relative;
+  inset: 0 1rem;
+  &::before {
+    content: "";
+    background: $muhal-grey-light;
+    border: 1px solid $muhal-grey-dark;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 20px;
+    position: absolute;
+    inset: 0.6rem -1.27rem;
+  }
 }
+
 </style>
 
 <i18n>
@@ -264,7 +304,15 @@ tr:last-child {
         "inAbsentia": "In absentia?"
       },
       "timeline": {
-        "title": "Timeline"
+        "title": "Timeline",
+        "dateOfPublication": "publication",
+        "dateOfContact": "contact",
+        "dateOfInvestigation": "investigation",
+        "dateOfDetention": "detention",
+        "dateOfHearing": "hearing",
+        "dateOfHearing2": "second hearing",
+        "dateOfRelease": "release",
+        "dateOfRuling": "ruling"
       }
     },
     "moreCases": "View more cases"
@@ -310,7 +358,15 @@ tr:last-child {
         "inAbsentia": "حكم غيابي؟"
       },
       "timeline": {
-        "title": "الخط الزمني"
+        "title": "الخط الزمني",
+        "dateOfPublication": "النشر",
+        "dateOfContact": "الاستدعاء",
+        "dateOfInvestigation": "التحقيق",
+        "dateOfDetention": "الاحتجاز",
+        "dateOfHearing": "الجلسة الأولى",
+        "dateOfHearing2": "الجلسة الثانية",
+        "dateOfRelease": "إطلاق السراح",
+        "dateOfRuling": "إطلاق الحكم"
       }     
     },
     "moreCases": "عرض حالات أخرى"
