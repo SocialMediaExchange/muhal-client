@@ -62,7 +62,6 @@
             >
               <input type="checkbox" id="case-pending" v-model="filter.statusPending" />
               {{ $t("filterCases.casePending") }}
-              <!-- FIXME ensure that we're using the correct statuses -->
             </label>
           </fieldset>
 
@@ -195,7 +194,7 @@ export default {
       typeCases: true,
       statusOpen: true,
       statusClosed: true,
-      statusPending: true,
+      statusPending: false,
       plaintiffs: "all",
       platforms: "all",
       fromDateOfPublication: "2010-01-01",
@@ -248,8 +247,7 @@ export default {
             (case_.judge !== null) === this.filter.typeCases) &&
           ((case_.currentStatus === "open") === this.filter.statusOpen ||
             (case_.currentStatus === "closed") === this.filter.statusClosed ||
-            (case_.currentStatus === "pending") ===
-              this.filter.statusPending) &&
+            (case_.currentStatus === "pending") === this.filter.statusPending) &&
           (this.filter.plaintiffs === "all" ||
             case_.plaintiffs
               .map(case_ => case_.id)
