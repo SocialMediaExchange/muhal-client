@@ -1,8 +1,8 @@
 <template>
-  <div class="cf mw8 center pv3">
-    <h1>{{ about.title }}</h1>
-    <div v-html="aboutText"></div>
-    <report-case-form/>
+  <div class="cf mw8 center pv3 muhal-blue">
+    <h1>{{ pageTitle }}</h1>
+    <div v-html="pageText"></div>
+    <report-case-form />
   </div>
 </template>
 
@@ -14,26 +14,29 @@ import ReportCaseForm from "~/components/ReportCaseForm.vue"
 export default {
   head() {
     return {
-      title: this.about.title || this.$t("about")
+      title: this.page.title || this.$t("report"),
     }
   },
   components: { ReportCaseForm },
   async asyncData({ $axios, params }) {
     try {
-      let about = await $axios.$get(`/pages/report`)
-      return { about: about }
+      let page = await $axios.$get(`/pages/report`)
+      return { page: page }
     } catch (e) {
-      return { about: {} }
+      return { page: { title: "", slug: "report", text: "" } }
     }
   },
   data() {
     return {}
   },
   computed: {
-    aboutText: function() {
-      return marked(this.about.text)
-    }
-  }
+    pageTitle: function () {
+      return this.page.title || this.$t("report")
+    },
+    pageText: function () {
+      return marked(this.page.text)
+    },
+  },
 }
 </script>
 
@@ -43,10 +46,10 @@ export default {
 <i18n>
 {
   "en": {
-    "about": "Report a case"
+    "report": "Report a case"
   },
   "ar": {
-    "about": "التصريح عن حالة"
+    "report": "التبليغ عن حالة"
   }
 }
 </i18n>

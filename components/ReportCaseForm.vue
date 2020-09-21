@@ -1,19 +1,19 @@
-<template>
+  <template>
   <form @submit.prevent="submitReport">
     <label class="db">
-      {{ $t("plaintiff") }}
-      <input type="text" v-model="plaintiff" class="db" />
+      <h2 class="mb1">{{ $t("plaintiff") }}</h2>
+      <input type="text" v-model="plaintiff" class="db ba b--muhal-grey-dark pa2" />
     </label>
 
     <label class="db">
-      {{ $t("defendant") }}
-      <input type="text" v-model="defendant" class="db" />
+      <h2 class="mb1">{{ $t("defendant") }}</h2>
+      <input type="text" v-model="defendant" class="db ba b--muhal-grey-dark pa2" />
     </label>
 
     <label class="db">
-      {{ $t("whatHappened") }}
+      <h2 class="mb1">{{ $t("whatHappened") }}</h2>
       <textarea
-        class="w-80 ma2 db"
+        class="w-80 db ba b--muhal-grey-dark pa2"
         maxlength="1000"
         rows="6"
         name="description"
@@ -21,28 +21,33 @@
         v-model="whatHappened"
       ></textarea>
     </label>
-    <input type="button" :value="$t('submit')" @click="submitReport"/>
+    <input
+      type="submit"
+      :value="$t('submit')"
+      @click="submitReport"
+      class="f3 mv3 pa2 ba b--muhal-blue"
+    />
   </form>
 </template>
 <script>
 export default {
   name: "CaseTimeline",
   props: {
-    dates: Array
+    dates: Array,
   },
   data() {
     return {
       plaintiff: null,
       defendant: null,
-      whatHappened: null
+      whatHappened: null,
     }
   },
   methods: {
-    submitReport: function() {
+    submitReport: function () {
       console.log(this.plaintiff, this.defendant, this.whatHappened)
-    }
+    },
   },
-  computed: {}
+  computed: {},
 }
 </script>
 
