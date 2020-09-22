@@ -1,5 +1,5 @@
 <template>
-  <div class="cf mw8 center pv3">
+  <div class="cf mw8 center pv3 muhal-blue">
     <h1>{{ about.title }}</h1>
     <div v-html="aboutText"></div>
   </div>
@@ -22,7 +22,7 @@ export default {
       let about = await $axios.$get(`/pages/about`)
       return { about: about }
     } catch (e) {
-      return {}
+      return { about: { title: "About Muhal", slug: "report", text: "" }}
     }
   },
   data() {
