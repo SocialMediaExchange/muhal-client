@@ -41,6 +41,7 @@
         :value="$t('submit')"
         @click="submitReport"
         class="f3 mv3 pa2 ba b--muhal-blue"
+        :disabled="submitDisabled"
       />
       <span v-if="incomplete" class="f3 muhal-pink">{{ $t("incomplete") }}</span>
       <span class="f3 muhal-pink">{{ errorMessage }}</span>
@@ -64,6 +65,7 @@ export default {
       incomplete: false,
       errorMessage: null,
       submitSuccessful: false,
+      submitDisabled: false,
     }
   },
   methods: {
@@ -74,6 +76,7 @@ export default {
         this.defendant &&
         this.whatHappened
       ) {
+        this.submitDisabled = true
         this.$axios
           .$post("/reports/", {
             submitter: this.submitter,
@@ -82,8 +85,9 @@ export default {
             defendant: this.defendant,
             what_happened: this.whatHappened,
           })
-          .then(response => this.submitSuccessful = true)
-          .catch(error => this.errorMessage = this.$t("submitError"))
+          .then((response) => (this.submitSuccessful = true))
+          .catch((error) => (this.errorMessage = this.$t("submitError")))
+          .then(() => (this.submitDisabled = false)) // equivalent to finally - always executed
       } else {
         this.errorMessage = this.$t("incomplete")
       }
