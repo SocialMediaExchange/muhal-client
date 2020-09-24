@@ -56,6 +56,8 @@ export default {
     '@nuxtjs/dotenv',
     // Doc: https://nuxt-community.github.io/nuxt-i18n/
     'nuxt-i18n',
+    // Doc: https://github.com/nuxt-community/redirect-module
+    '@nuxtjs/redirect-module',
   ],
   /*
   ** Axios module configuration
@@ -83,6 +85,9 @@ export default {
   router: {
     middleware: ['ApiLocale',]
   },
+  redirect: [
+    { from: '^\/[a-z]{2}\/$', to: '/cases' }
+  ],
   i18n: {
     // Doc: https://nuxt-community.github.io/nuxt-i18n/options-reference.html
     locales: ['ar', 'en', ],
