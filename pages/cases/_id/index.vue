@@ -20,14 +20,15 @@
             <div class="muhal-grey-dark">{{ $t('main.plaintiffs') }}</div>
             <div class>
               <span v-for="(plaintiff, index) in case_.plaintiffs" :key="plaintiff.id">
-                {{ plaintiff.firstName }} {{ plaintiff.lastName }}<!--HACK skip the white space before the comma
+                {{ plaintiff.firstName }} {{ plaintiff.lastName }}<span v-if="plaintiff.description"> ({{ plaintiff.description }})</span><!--HACK skip the white space before the comma
                 --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}&nbsp;</span>
               </span>
             </div>
           </div>
           <div class="fs w-100 w-20-ns pa2">
             <div class="muhal-grey-dark">{{ $t('country.label') }}</div>
-            <div class>{{ case_.country }} {{$t('country.lebanon')}} &#x1F1F1;&#x1F1E7;</div>
+            <div class>{{ case_.country }}</div>
+            <!-- {{$t('country.lebanon')}} &#x1F1F1;&#x1F1E7; -->
           </div>
           <div class="fs w-100 w-20-ns pa2">
             <div class="muhal-grey-dark">{{ $t('main.platform') }}</div>
@@ -39,7 +40,7 @@
           </div>
           <div class="fs w-100 w-20-ns pa2">
             <div class="muhal-grey-dark">{{ $t('main.currentStatus') }}</div>
-            <div class>{{ case_.currentStatus }}</div>
+            <div class>{{ case_.currentStatusDisplay }}</div>
           </div>
         </div>
         <div>
@@ -51,19 +52,38 @@
 
     <!-- about the complaint  -->
     <div class="flex flex-wrap w-80 center mv3 bg-white pa4">
-      <h2>{{ $t('details.complaint.title') }}</h2>
+      <h2 class="mv0">{{ $t('details.complaint.title') }}</h2>
       <div class="cf w-100">
         <template v-for="(attr, index) in complaintAttributes">
           <div class="fs w-100 w-20-ns pa2" v-if="case_[attr]" :key="index">
             <div class="muhal-grey-dark">{{ $t(`details.complaint.${attr}`) }}</div>
+              <div class>{{ case_[attr] }}</div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- about the case  -->
+    <div class="flex flex-wrap w-80 center mv3 bg-white pa4">
+      <h2 class="mv0">{{ $t('details.case.title') }}</h2>
+      <div class="cf w-100">
+        <div class="fs w-100 pa2" v-if="case_['judges']">
+          <div class="muhal-grey-dark">{{ $t(`details.case.judges`) }}</div>
+            <ul class="list pa0 ma0">
+              <li v-for="judge in case_['judges']" :key="judge.id"> {{ judge.firstName }} {{ judge.lastName }}<span v-if="judge.legalEntity"> - {{ judge.legalEntity }}</span><span v-if="judge.kaza"> - {{ judge.kaza }}</span></li>
+            </ul>
+        </div>
+        <template v-for="(attr, index) in caseAttributes">
+          <div class="fs w-100 w-20-ns pa2" v-if="case_[attr]" :key="index">
+            <div class="muhal-grey-dark">{{ $t(`details.case.${attr}`) }}</div>
             <div class>{{ case_[attr] }}</div>
           </div>
         </template>
       </div>
     </div>
 
-    <!-- about the lawsuit  -->
-    <div v-if="complaintDetailsExist" class="w-80 center mv3 bg-white pa4">
+    <!-- about the complaint  -->
+    <!-- <div v-if="complaintDetailsExist" class="w-80 center mv3 bg-white pa4">
       <h2>{{ $t('details.case.title') }}</h2>
 
       <div class="flex flex-wrap w-100">
@@ -105,7 +125,7 @@
         </div>
       </div>
       <div></div>
-    </div>
+    </div> -->
 
     <!-- case timeline  -->
     <div class="w-80 center mv3 bg-white pa4">
@@ -113,7 +133,7 @@
       <div class="w-100">
         <ol id="timeline" class="list pa0">
           <li v-for="(date, index) in datesOrdered" :key="index" class="event">
-            <div class="pb3">
+            <div class="pb3" v-if="date[1]">
               <span class="muhal-grey-dark ttc">{{ $t(`details.timeline.${date[0]}`) }}</span>
               <br />
               {{ date[1] | formatDate }}
@@ -196,7 +216,15 @@ export default {
       )
     },
     caseAttributes: function () {
-      return ["bail", "sentenced", "inAbsentia"] // "charge",  "sentence",
+      return [
+        //"judges",
+        "charge",
+        "charged_using",
+        "bail",
+        "sentenced",
+        "sentence",
+        "inAbsentia",
+      ]
     },
     timeline: function () {
       return [
@@ -257,7 +285,6 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
     inset: 0.6rem -1.27rem;
   }
 }
-
 </style>
 
 <i18n>
@@ -295,6 +322,9 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
       },
       "case": {
         "title": "Case details",
+        "dateOfContact": "contact",
+        "dateOfInvestigation": "investigation",
+        "stationName": "Station name",
         "charge": "Charge",
         "judge": "Judge",
         "chargedUsing": "Charged using",
@@ -350,7 +380,7 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
       "case": {
         "title": "عن الدعوى",
         "charge": "التهمة",
-        "judge": "القاضي/ة",
+        "judges": "القضاة",
         "chargedUsing": "متهم باستعمال القوانين",
         "bail": "مبلغ الكفالة",
         "sentenced": "تم الحكم؟",

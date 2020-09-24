@@ -7,5 +7,5 @@ Vue.filter("truncate", function(text, length, clamp) {
 })
 
 Vue.filter("formatDate", function(date) {
-  return date.toISOString().split("T")[0]
+  return date ? date.toISOString().split("T")[0] : null
 })

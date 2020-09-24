@@ -26,14 +26,14 @@
             <span class="fw7">{{ case_.plaintiffs.length > 1 ? $t('plaintiffs') : $t('plaintiff') }}</span>
             <ul class="list pa0 ma0">
               <li class="fs" v-for="(plaintiff, index) in case_.plaintiffs" v-bind:key="index">
-                {{ plaintiff.firstName }} {{ plaintiff.lastName }}<!-- 
+                {{ plaintiff.firstName }} {{ plaintiff.lastName }}<span v-if="plaintiff.description"> ({{ plaintiff.description }})</span><!-- 
             HACK skip the white space before the comma
                 --><span v-if="index < case_.plaintiffs.length - 1">{{ $t(',') }}&nbsp;</span>
               </li>
             </ul>
           </div>
-          <div class="w-100 f5 measure-narrow normal">
-            <p>{{ case_.summary | truncate(90, "...") }}</p>
+          <div class="w-100 f5 normal">
+            <p>{{ case_.summary | truncate(100, "...") }}</p>
             <!-- <p>{{ case_.currentStatus }}</p>
           <p>{{ case_.judge }}</p>
           <p>{{ case_.platformDisplay }}</p>
@@ -61,7 +61,8 @@ export default {
   },
   computed: {
     currentStatusColor: function() {
-      return currentStatusColor[this.case_.currentStatus]
+      let status = this.case_.currentStatus
+      return currentStatusColor[this.case_.currentStatus] || "#f4f4f5"
     }
   }
 }
@@ -91,10 +92,9 @@ export default {
   },
   "ar": {
     ",": "،",
-    "defendant": "المدعى عليه/ا",
-    "defendants": "المدعى عليهمن",
-    "plaintiff": "المدعيـ/ـة",
-    "plaintiffs": "المدعون/ات",
+    "defendant": "الجهة المدعى عليها",
+    "plaintiff": "الجهة المدعية",
+    "plaintiffs": "الجهة المدعية",
     "readMore": "... قرائة المزيد >>"
   }
 }
