@@ -44,7 +44,7 @@
               class="checkbox-label"
               v-bind:class="{ 'checkbox-label-selected': filter.statusOpen }"
             >
-              <input type="checkbox" id="case-open" v-model="filter.statusOpen" />
+              <input type="checkbox" id="case-open" v-model="filter.statusOpen">
               {{ $t("filterCases.caseOpen") }}
             </label>
             <label
@@ -52,16 +52,24 @@
               class="checkbox-label"
               v-bind:class="{ 'checkbox-label-selected': filter.statusClosed }"
             >
-              <input type="checkbox" id="case-closed" v-model="filter.statusClosed" />
+              <input type="checkbox" id="case-closed" v-model="filter.statusClosed">
               {{ $t("filterCases.caseClosed") }}
             </label>
             <label
-              for="case-closed"
+              for="case-pending"
               class="checkbox-label"
               v-bind:class="{ 'checkbox-label-selected': filter.statusPending }"
             >
-              <input type="checkbox" id="case-pending" v-model="filter.statusPending" />
+              <input type="checkbox" id="case-pending" v-model="filter.statusPending">
               {{ $t("filterCases.casePending") }}
+            </label>
+            <label
+              for="case-unknown"
+              class="checkbox-label"
+              v-bind:class="{ 'checkbox-label-selected': filter.statusUnknown }"
+            >
+              <input type="checkbox" id="case-unknown" v-model="filter.statusUnknown">
+              {{ $t("filterCases.caseUnknown") }}
             </label>
           </fieldset>
 
@@ -78,7 +86,7 @@
                 <option
                   selected
                   value="all"
-                >--> {{ $t("filterCases.allPlaintiffs") }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8964;</option>
+                >--> {{ $t("filterCases.allPlaintiffs") }}</option> <!--  &#x1F53D; -->
                 <option
                   v-for="plaintiff in plaintiffs"
                   :key="plaintiff.id"
@@ -101,7 +109,7 @@
                 <option
                   selected
                   value="all"
-                >--> {{ $t("filterCases.allPlatforms") }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8964;</option>
+                >--> {{ $t("filterCases.allPlatforms") }} </option> <!--     &#x1F53D;-->
                 <option
                   v-for="platform in platforms"
                   :key="platform[0]"
@@ -194,7 +202,8 @@ export default {
       typeCases: true,
       statusOpen: true,
       statusClosed: true,
-      statusPending: false,
+      statusPending: true,
+      statusUnknown: true,
       plaintiffs: "all",
       platforms: "all",
       fromDateOfPublication: "2010-01-01",
@@ -245,17 +254,18 @@ export default {
           case_.summary.includes(this.filter.searchText) &&
           ((case_.judge === null) === this.filter.typeComplaints ||
             (case_.judge !== null) === this.filter.typeCases) &&
-          ((case_.currentStatus === "open") === this.filter.statusOpen ||
-            (case_.currentStatus === "closed") === this.filter.statusClosed ||
-            (case_.currentStatus === "pending") === this.filter.statusPending) &&
+          (((case_.currentStatus === "open") && this.filter.statusOpen) ||
+           ((case_.currentStatus === "closed") && this.filter.statusClosed) ||
+           ((case_.currentStatus === "pending") && this.filter.statusPending) ||
+           ((case_.currentStatus === "unknown") && this.filter.statusUnknown)) &&
           (this.filter.plaintiffs === "all" ||
             case_.plaintiffs
               .map(case_ => case_.id)
               .includes(this.filter.plaintiffs)) &&
           (this.filter.platforms === "all" ||
             case_.platform === this.filter.platforms) &&
-          this.filter.fromDateOfPublication <= case_.dateOfPublication &&
-          this.filter.endDateOfPublication >= case_.dateOfPublication
+          (this.filter.fromDateOfPublication <= case_.dateOfPublication || case_.dateOfPublication === null) &&
+          (this.filter.endDateOfPublication >= case_.dateOfPublication || case_.dateOfPublication === null)
         )
       })
     }
@@ -354,6 +364,7 @@ select {
       "caseOpen": "Open",
       "caseClosed": "Closed",
       "casePending": "Pending appeal or objection",
+      "caseUnknown": "Unknown",
       "plaintiffs": "Plaintiffs",
       "allPlaintiffs": "All plaintiffs", 
       "platforms": "Platforms",
@@ -377,6 +388,7 @@ select {
       "caseOpen": "مفتوحة",
       "caseClosed": "مغلقة",
       "casePending": "بانتظار استئناف أو اعتراض",
+      "caseUnknown": "غير معروف",
       "plaintiffs": "المُدّعون",
       "allPlaintiffs": "كل المُدّعون",
       "platforms": "المنصّات",

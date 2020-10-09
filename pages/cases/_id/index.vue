@@ -67,10 +67,20 @@
     <div class="flex flex-wrap w-80 center mv3 bg-white pa4">
       <h2 class="mv0">{{ $t('details.case.title') }}</h2>
       <div class="cf w-100">
-        <div class="fs w-100 pa2" v-if="case_['judges']">
+        <div class="fs w-100 pa2" v-if="case_['judges'].length">
           <div class="muhal-grey-dark">{{ $t(`details.case.judges`) }}</div>
             <ul class="list pa0 ma0">
               <li v-for="judge in case_['judges']" :key="judge.id"> {{ judge.firstName }} {{ judge.lastName }}<span v-if="judge.legalEntity"> - {{ judge.legalEntity }}</span><span v-if="judge.kaza"> - {{ judge.kaza }}</span></li>
+            </ul>
+        </div>
+        <div class="fs w-50 pa2" v-if="case_['charge']">
+          <div class="muhal-grey-dark">{{ $t(`details.case.charge`) }}</div>
+            {{ case_.charge }}
+        </div>
+        <div class="fs w-50 pa2" v-if="case_['chargedUsing'].length"> 
+          <div class="muhal-grey-dark">{{ $t(`details.case.chargedUsing`) }}</div>
+            <ul class="list pa0 ma0">
+              <li v-for="law in case_['chargedUsing']" :key="law.id"> <a :href="law.url" class="link muhal-purple">{{ law.law }} {{ law.number }} <span v-if="law.name">({{ law.name }})</span> >> </a></li>
             </ul>
         </div>
         <template v-for="(attr, index) in caseAttributes">
@@ -218,8 +228,8 @@ export default {
     caseAttributes: function () {
       return [
         //"judges",
-        "charge",
-        "charged_using",
+        // "charge",
+        //"charged_using",
         "bail",
         "sentenced",
         "sentence",
@@ -381,7 +391,7 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
         "title": "عن الدعوى",
         "charge": "التهمة",
         "judges": "القضاة",
-        "chargedUsing": "متهم باستعمال القوانين",
+        "chargedUsing": "القوانين المستعملة",
         "bail": "مبلغ الكفالة",
         "sentenced": "تم الحكم؟",
         "sentence": "الحكم",
