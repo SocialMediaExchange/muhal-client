@@ -51,7 +51,7 @@ const currentStatusColor = {
   open: "#f89d61",
   closed: "#3d3356",
   pending: "#ba365d",
-  pending: "hsla(210, 41%, 50%, 1)"
+  unknown: "hsla(210, 41%, 50%, 1)"
 }
 
 export default {

@@ -164,18 +164,39 @@
         </form>
       </div>
     </div>
-    <div v-if="cases" id="cases" class="fs w-50-m w-70-ns flex flex-wrap pa4">
-      <div class="w-100 ph3">
-        <h2 class>{{ caseCount }} {{ $t("filterCases.cases") }}</h2>
-        <!-- <div class="dt w3">
-        <span class="br-100 bg-muhal-purple dtc h3"></span>
-      </div>
-      <div class="dt w3">
-        <span class="br-100 bg-muhal-orange dtc h3"></span>
-      </div>
-      <div class="dt w3">
-        <span class="br-100 bg-muhal-pink dtc h3"></span>
-        </div>-->
+    <div v-if="cases" id="cases" class="fs w-50-m w-70-ns flex flex-wrap pa4 muhal-blue ">
+       <div class="w-100 ph3">
+          <div class="fs w-20-ns w-100 ph2">
+            <h2 class="mv1">{{ $t("filterCases.cases") }}: {{ caseCount }} </h2>
+          </div>
+
+          <div class="fs w-20-ns w-100 v-mid pv1">
+            <div class="dt w2 fs mh2">
+              <span class="br-100 bg-muhal-orange dtc h2"></span>
+            </div>
+            <span class="f3">{{ $t('filterCases.caseOpen') }}</span>
+          </div>
+
+          <div class="fs w-20-ns w-100 v-mid pv1">
+            <div class="dt w2 fs mh2">
+              <span class="br-100 bg-muhal-blue dtc h2"></span>
+            </div>
+            <span class="f3">{{ $t('filterCases.caseClosed') }}</span>
+          </div>
+
+          <div class="fs w-20-ns w-100 v-mid pv1">
+            <div class="dt w2 fs mh2">
+              <span class="br-100 bg-muhal-pink dtc h2"></span>
+            </div>
+            <span class="f3">{{ $t('filterCases.casePending') }}</span>
+          </div>
+
+          <div class="fs w-20-ns w-100 v-mid pv1">
+            <div class="dt w2 fs mh2">
+              <span class="br-100 bg-muhal-grey dtc h2"></span>
+            </div>
+            <span class="f3">{{ $t('filterCases.caseUnknown') }}</span>
+          </div>
       </div>
 
       <case-card v-for="case_ in filteredCases" v-bind:key="case_.id" :case_="case_" />
@@ -372,7 +393,7 @@ select {
       "publicationDate": "Publication date",
       "start": "Starting",
       "until": "Until",
-      "cases": "cases"
+      "cases": "Case count"
     }
   },
   "ar": {
@@ -396,7 +417,7 @@ select {
       "publicationDate": "تاريخ النشر",
       "start": "منذ",
       "until": "إلى",
-      "cases": "حالات"
+      "cases": "عدد الحالات"
     }
   }
 }
