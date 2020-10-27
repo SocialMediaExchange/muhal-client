@@ -65,6 +65,8 @@ export default {
   */
   axios: {
     baseURL: process.env.BASE_API_URL,
+    retry: { retries: 3 }, 
+    debug: true
   },
   /*
   ** Build configuration
