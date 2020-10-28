@@ -40,7 +40,7 @@
         type="submit"
         :value="$t('submit')"
         @click="submitReport"
-        class="f3 mv3 pa2 ba b--muhal-blue"
+        class="f2 fw6 mv3 pv1 ph5 ba bw2 b--muhal-blue"
         :disabled="submitDisabled"
       />
       <span v-if="incomplete" class="f3 muhal-pink">{{ $t("incomplete") }}</span>
