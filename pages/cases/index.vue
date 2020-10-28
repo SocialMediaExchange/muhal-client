@@ -171,28 +171,28 @@
             <h2 class="mv1">{{ $t("filterCases.cases") }}: {{ caseCount }} </h2>
           </div>
 
-          <div class="fs w-20-ns w-100 v-mid pv1">
+          <div class="fs w-20-l w-100 v-mid pv1">
             <div class="dt w2 fs mh2">
               <span class="br-100 bg-muhal-orange dtc h2"></span>
             </div>
             <span class="f3">{{ $t('filterCases.caseOpen') }}</span>
           </div>
 
-          <div class="fs w-20-ns w-100 v-mid pv1">
+          <div class="fs w-20-l w-100 v-mid pv1">
             <div class="dt w2 fs mh2">
               <span class="br-100 bg-muhal-blue dtc h2"></span>
             </div>
             <span class="f3">{{ $t('filterCases.caseClosed') }}</span>
           </div>
 
-          <div class="fs w-20-ns w-100 v-mid pv1">
+          <div class="fs w-20-l w-100 v-mid pv1">
             <div class="dt w2 fs mh2">
               <span class="br-100 bg-muhal-pink dtc h2"></span>
             </div>
             <span class="f3">{{ $t('filterCases.casePending') }}</span>
           </div>
 
-          <div class="fs w-20-ns w-100 v-mid pv1">
+          <div class="fs w-20-l w-100 v-mid pv1">
             <div class="dt w2 fs mh2">
               <span class="br-100 bg-muhal-grey dtc h2"></span>
             </div>
