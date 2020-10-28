@@ -313,8 +313,8 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
       "accusedOf": "Accused of",
       "platform": "Platform",
       "dateOfPublication": "Date of publication",
-      "currentStatus": "Current status",
-      "summary": "Summary"
+      "currentStatus": "Case status",
+      "summary": "Case summary"
     },
     "details": {
       "header": "Case details",
@@ -370,18 +370,18 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
       "defendants": "الجهة المدّعى عليها",
       "platform": "المنصّة",
       "dateOfPublication": "تاريخ النشر",
-      "currentStatus": "الوضع الحالي",
-      "summary": "الملخّص"
+      "currentStatus": "وضع الحالة",
+      "summary": "ملخّص الحالة"
     },
     "details": {
       "header": "تفاصيل الحالة",
       "complaint": {
         "title": "عن الشكوى",
-        "dateOfContact": "تاريخ الاتصال",
+        "dateOfContact": "تاريخ التبليغ",
         "dateOfInvestigation": "تاريخ التحقيق",
         "stationName": "إسم المخفر",
-        "detained": "اعتقل؟",
-        "detainedFor": "أيّام الإعتقال",
+        "detained": "هل تم الاحتجاز؟",
+        "detainedFor": "مدّة الاحتجاز",
         "contentDeletion": "طُلب حذف المحتوى", 
         "pledgeSigning": "طُلب توقيع تعهّد",
         "reconciliation": "مصالحة؟",

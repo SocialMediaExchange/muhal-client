@@ -4,7 +4,8 @@
       <!-- <img src="~assets/nav.svg" class="static" alt="cover"> -->
       <div class="dib w-100 w-20-ns v-mid-ns">
         <nuxt-link :to="localePath('/')" class="pa1">
-          <img src="~assets/logo.svg" class="h3" :class="$i18n.locale == 'en' ? 'mirror' : ''" />
+          <img v-if="$i18n.locale == 'ar'" src="~assets/logo_ar.svg" class="h3"/>
+          <img v-else src="~assets/logo_en.svg" class="h3"/>
         </nuxt-link>
       </div>
       <div class="dib w-100 w-30-ns">&nbsp;</div>
@@ -66,7 +67,7 @@ a:visited {
   },
   "ar": {
     "cases": "الحالات",
-    "about": "عن مُحال",
+    "about": "نبذة عن مُحال",
     "report": "التبليغ عن حالة"
   }
 }

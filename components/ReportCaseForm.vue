@@ -111,7 +111,7 @@ export default {
     "plaintiff": "Plaintiff",
     "defendant": "Defendant",
     "whatHappened": "What happened?",
-    "submit": "Submit report",
+    "submit": "Submit",
     "submitError": "There was an error during submission! Please try again later.",
     "submitSuccessful": "Thank you for submitting a report! We might get in touch to ask about further details!",
     "incomplete": "Please fill out all the fields"
@@ -125,7 +125,7 @@ export default {
     "plaintiff": "الجهة المدّعية",
     "defendant": "الجهة المدّعى عليها",
     "whatHappened": "ما الذي حصل؟",
-    "submit": "إرسال مساهمة",
+    "submit": "إرسال",
     "submitError": "واجهنا مشكلة عند تسليم الاستمارة! الرجاء إعادة المحاولة لاحقاً!",
     "submitSuccessful": "شكراً للتبليغ عن حالة! يمكن أن نتواصل معك للتحقّق من بعض التفاصيل.",
     "incomplete": "الرجاء إتمام كامل خانات الاستمارة"
