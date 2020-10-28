@@ -23,7 +23,7 @@
               class="checkbox-label"
               v-bind:class="{ 'checkbox-label-selected': filter.typeComplaints }"
             >
-              <input type="checkbox" id="complaints" v-model="filter.typeComplaints" />
+              <input type="checkbox" id="complaints" v-model="filter.typeComplaints" :indeterminate.prop="false"/>
               {{ $t("filterCases.complaints") }}
             </label>
             <label
@@ -165,6 +165,7 @@
       </div>
     </div>
     <div v-if="cases" id="cases" class="fs w-50-m w-70-ns flex flex-wrap pa4 muhal-blue ">
+       <!-- case count and color key --> 
        <div class="w-100 ph3">
           <div class="fs w-20-ns w-100 ph2">
             <h2 class="mv1">{{ $t("filterCases.cases") }}: {{ caseCount }} </h2>
@@ -198,7 +199,7 @@
             <span class="f3">{{ $t('filterCases.caseUnknown') }}</span>
           </div>
       </div>
-
+      <!-- actual case cards -->
       <case-card v-for="case_ in filteredCases" v-bind:key="case_.id" :case_="case_" />
     </div>
   </div>
@@ -219,12 +220,12 @@ export default {
   async asyncData({ $axios, params }) {
     let filter = {
       searchText: "",
-      typeComplaints: true,
-      typeCases: true,
-      statusOpen: true,
-      statusClosed: true,
-      statusPending: true,
-      statusUnknown: true,
+      typeComplaints: false,
+      typeCases: false,
+      statusOpen: false,
+      statusClosed: false,
+      statusPending: false,
+      statusUnknown: false,
       plaintiffs: "all",
       platforms: "all",
       fromDateOfPublication: "2010-01-01",
@@ -242,12 +243,12 @@ export default {
         filter: filter
       }
     } catch (e) {
-      console.log(e)
       return {
         cases: [],
         plaintiffs: [],
         platforms: [],
-        filter: filter
+        filter: filter,
+        error: e
       }
     }
   },
@@ -273,9 +274,11 @@ export default {
       return this.cases.filter(case_ => {
         return (
           case_.summary.includes(this.filter.searchText) &&
-          ((case_.judge === null) === this.filter.typeComplaints ||
-            (case_.judge !== null) === this.filter.typeCases) &&
-          (((case_.currentStatus === "open") && this.filter.statusOpen) ||
+          ((!this.filter.typeCases && !this.filter.typeComplaints) || // all checkboxes are false 
+           (case_.judge === null) === this.filter.typeComplaints || 
+           (case_.judge !== null) === this.filter.typeCases) &&
+          ((!this.filter.statusOpen && !this.filter.statusClosed && !this.filter.statusPending && !this.filter.statusUnknown) || // all checkboxes are false 
+           ((case_.currentStatus === "open") && this.filter.statusOpen) ||
            ((case_.currentStatus === "closed") && this.filter.statusClosed) ||
            ((case_.currentStatus === "pending") && this.filter.statusPending) ||
            ((case_.currentStatus === "unknown") && this.filter.statusUnknown)) &&
@@ -303,9 +306,6 @@ export default {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-[type="checkbox"] {
   width: 20px;
   height: 20px;
   border: solid 1px hsla(257, 26%, 27%, 1);

@@ -85,10 +85,10 @@ export default {
 {      
   "en": {
     ",": ",", 
-    "defendant": "defendant",
-    "defendants": "defendants",
-    "plaintiff": "plaintiff",
-    "plaintiffs": "plaintiffs",
+    "defendant": "Defendant",
+    "defendants": "Defendants",
+    "plaintiff": "Plaintiff",
+    "plaintiffs": "Plaintiffs",
     "readMore": "... read more >>"
   },
   "ar": {
