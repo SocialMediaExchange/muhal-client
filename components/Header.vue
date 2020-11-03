@@ -3,7 +3,7 @@
     <nav class="f6 fw6 ttc cover cf">
       <!-- <img src="~assets/nav.svg" class="static" alt="cover"> -->
       <div class="dib w-100 w-20-ns v-mid-ns">
-        <nuxt-link :to="localePath('/')" class="pa1">
+        <nuxt-link :to="localePath('/cases')" class="pa1">
           <img v-if="$i18n.locale == 'ar'" src="~assets/logo_ar.svg" class="h3"/>
           <img v-else src="~assets/logo_en.svg" class="h3"/>
         </nuxt-link>
