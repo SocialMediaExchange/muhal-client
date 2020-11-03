@@ -379,7 +379,7 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
         "title": "عن الشكوى",
         "dateOfContact": "تاريخ التبليغ",
         "dateOfInvestigation": "تاريخ التحقيق",
-        "stationName": "إسم المخفر",
+        "stationName": "إسم مكان التحقيق",
         "detained": "هل تم الاحتجاز؟",
         "detainedFor": "مدّة الاحتجاز",
         "contentDeletion": "طُلب حذف المحتوى", 
