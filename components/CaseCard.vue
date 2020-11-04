@@ -24,7 +24,10 @@
           </div>
           <div class="w-100 mb1 bg-muhal-grey-light pa3 f4">
             <span class="fw7">{{ case_.plaintiffs.length > 1 ? $t('plaintiffs') : $t('plaintiff') }}</span>
-            <ul class="list pa0 ma0">
+            <ul v-if="case_.plaintiffs.length === 0"  class="list pa0 ma0">
+              <li>{{ $t("unknown")}}</li>
+            </ul>
+            <ul v-if="case_.plaintiffs.length"  class="list pa0 ma0">
               <li class="fs" v-for="(plaintiff, index) in case_.plaintiffs" v-bind:key="index">
                 {{ plaintiff.firstName }} {{ plaintiff.lastName }}<span v-if="plaintiff.description"> ({{ plaintiff.description }})</span><!-- 
             HACK skip the white space before the comma
@@ -51,7 +54,7 @@ const currentStatusColor = {
   open: "#f89d61",
   closed: "#3d3356",
   pending: "#ba365d",
-  unknown: "hsla(210, 41%, 50%, 1)"
+  unknown: "hsla(33, 15%, 88%, 1)"
 }
 
 export default {
@@ -89,6 +92,7 @@ export default {
     "defendants": "Defendants",
     "plaintiff": "Plaintiff",
     "plaintiffs": "Plaintiffs",
+    "unknown": "Unknown",
     "readMore": "... read more >>"
   },
   "ar": {
@@ -96,6 +100,7 @@ export default {
     "defendant": "الجهة المدعى عليها",
     "plaintiff": "الجهة المدعية",
     "plaintiffs": "الجهة المدعية",
+    "unknown": "غير معروفة",
     "readMore": "... قرائة المزيد >>"
   }
 }
