@@ -22,7 +22,7 @@
         </div>
         <div class="fl w-100 w-50-ns">
           <a class="mt0" href="https://smex.org"
-            ><img class="h3" src="~assets/smex_logo.png" alt="SMEX Logo"
+            ><img class="h3 pa3 bg-muhal-grey-light br3" src="~assets/smex_logo.svg" alt="SMEX Logo"
           /></a>
           <p class="mt0">{{ $t("smex") }}</p>
           <!-- <svg
