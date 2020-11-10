@@ -4,15 +4,15 @@
       <div class="cf ph2-ns">
         <div class="fl w-100 w-50-ns">
           <h3 class="mv1">{{ $t("connect") }}</h3>
-          <a class="link dim muhal-grey" href="https://twitter.com/MuhalFoE">
+          <a class="link dim muhal-grey" href="https://twitter.com/MuhalFoE" target="_blank">
             {{ $t("twitter") }}
           </a>
           -
-          <a class="link dim muhal-grey" href="mailto:muhal@smex.org">
+          <a class="link dim muhal-grey" href="mailto:muhal@smex.org" target="_blank">
             {{ $t("email") }}
           </a>
           <p class="" v-html="$t('licenseStatement')"></p>
-          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
             <img
               alt="Creative Commons License"
               style="border-width: 0"
@@ -21,9 +21,9 @@
           </a>
         </div>
         <div class="fl w-100 w-50-ns">
-          <a class="mt0" href="https://smex.org"
-            ><img class="h3 pa3 bg-muhal-grey-light br3" src="~assets/smex_logo.svg" alt="SMEX Logo"
-          /></a>
+          <a class="mt0" href="https://smex.org" target="_blank">
+            <img class="h3 pa3 bg-muhal-grey-light br3" src="~assets/smex_logo.svg" alt="SMEX Logo" />
+          </a>
           <p class="mt0">{{ $t("smex") }}</p>
           <!-- <svg
               data-icon="twitter"
@@ -68,7 +68,7 @@ export default {
   },
   "ar": {
     "license": "المشاع الإبداعي - النسبة",
-    "licenseStatement": "باستثناء إشعار آخر، محتوى موقع مٌحال مرخّص بموجب <a class=\"link dim underline muhal-white\" rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">برخصة المشاع الإبداعي نَسب المُصنّف 4.0 دولي</a>.",
+    "licenseStatement": "باستثناء إشعار آخر، محتوى موقع مٌحال مرخّص بموجب <a class=\"link dim underline muhal-white\" rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">برخصة المشاع الإبداعي نَسب المُصنّف 4.0 دولي</a>.",
     "connect": "تواصلوا معنا",
     "twitter": "تويتر",
     "email": "البريد الإلكتروني",
