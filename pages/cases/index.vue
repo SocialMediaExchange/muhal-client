@@ -4,17 +4,23 @@
       <div class="pa4 bg-white muhal-purple">
         <h2>{{ $t("filterCases.title") }}</h2>
         <form @submit.prevent="updateFilter">
+          <!-- country options  -->
           <fieldset class="bw0 mv3">
-            <label for="text-content">
-              <input
-                type="search"
-                id="text-content"
-                class="w-100 br2 pa2 ba b--muhal-blue"
-                :placeholder="$t('filterCases.searchContent')"
-                v-model="filter.searchText"
-              />
+            <label>
+              <legend class="fw7">{{ $t("filterCases.countries") }}</legend>
+              <select
+                name="platforms"
+                id="platform-options"
+                class="w-100"
+                v-model="filter.countries"
+              >
+                <option selected value="all">--> {{ $t("filterCases.allCountries") }} </option> 
+                <option value="lebanon">{{ $t("filterCases.lebanon") }}</option>
+                <option value="jordan">{{ $t("filterCases.jordan") }}</option>
+              </select>
             </label>
           </fieldset>
+
           <!-- case types  -->
           <fieldset class="bw0 mv3">
             <legend class="fw7">{{ $t("filterCases.caseType") }}</legend>
@@ -228,6 +234,7 @@ export default {
       statusUnknown: false,
       plaintiffs: "all",
       platforms: "all",
+      countries: "all",
       fromDateOfPublication: "2010-01-01",
       endDateOfPublication: new Date().toISOString().split("T")[0]
     }
@@ -271,9 +278,13 @@ export default {
       return lastCase ? lastCase["dateOfPublication"] : new Date(2010, 1, 1)
     },
     filteredCases: function() {
+      console.log(this.filter.countries)
       return this.cases.filter(case_ => {
+      console.log(case_.country)
         return (
           case_.summary.includes(this.filter.searchText) &&
+          (this.filter.countries === "all" ||
+            case_.country === this.filter.countries) &&
           ((!this.filter.typeCases && !this.filter.typeComplaints) || // all checkboxes are false 
            (case_.judge === null) === this.filter.typeComplaints || 
            (case_.judge !== null) === this.filter.typeCases) &&
@@ -393,7 +404,11 @@ select {
       "publicationDate": "Publication date",
       "start": "Starting",
       "until": "Until",
-      "cases": "Case count"
+      "cases": "Case count",
+      "countries": "Countries",
+      "allCountries": "All countries",
+      "lebanon": "Lebanon",
+      "jordan": "Jordan"
     }
   },
   "ar": {
@@ -417,7 +432,11 @@ select {
       "publicationDate": "تاريخ النشر",
       "start": "منذ",
       "until": "إلى",
-      "cases": "عدد الحالات"
+      "cases": "عدد الحالات",
+      "countries": "الدول",
+      "allCountries": "كل الدول",
+      "lebanon": "لبنان",
+      "jordan": "الأردن"
     }
   }
 }
