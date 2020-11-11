@@ -27,7 +27,7 @@
           </div>
           <div class="fs w-100 w-20-ns pa2">
             <div class="muhal-grey-dark">{{ $t('country.label') }}</div>
-            <div class>{{ case_.country }}</div>
+            <div class>{{ case_.countryDisplay }}</div>
             <!-- {{$t('country.lebanon')}} &#x1F1F1;&#x1F1E7; -->
           </div>
           <div class="fs w-100 w-20-ns pa2">

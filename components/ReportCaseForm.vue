@@ -2,8 +2,8 @@
   <div>
     <form @submit.prevent="submitReport" v-if="!submitSuccessful">
       <label class="db">
-        <h2 class="mb1">{{ $t("email") }}</h2>
-        <input type="email" v-model="submitter" class="w-60 db ba b--muhal-grey-dark pa2" />
+        <h2 class="mb1">{{ $t("contact") }}</h2>
+        <input type="text" v-model="submitter" class="w-60 db ba b--muhal-grey-dark pa2" />
       </label>
 
       <label class="db">
@@ -103,7 +103,7 @@ export default {
 <i18n>
 {
   "en": {
-    "email": "Your e-mail",
+    "contact": "Your e-mail, Signal, or WhatsApp number",
     "country": "Country",
     "lebanon": "Lebanon",
     "jordan": "Jordan",
@@ -117,7 +117,7 @@ export default {
     "incomplete": "Please fill out all the fields"
   },
   "ar": {
-    "email": "عنوان البريد الإلكتروني الخاص بك",
+    "contact": "عنوان البريد الإلكتروني، أو رقم الواتساب أو سيغنال الخاص بك",
     "country": "الدولة",
     "lebanon": "لبنان",
     "jordan": "الأردن",
