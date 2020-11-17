@@ -107,7 +107,13 @@
                   v-for="plaintiff in plaintiffs"
                   :key="plaintiff.id"
                   :value="plaintiff.id"
-                >{{ plaintiff.firstName }} {{ plaintiff.lastName }}</option>
+                >
+                  <template v-if="plaintiff.firstName">
+                    {{ plaintiff.firstName }} {{ plaintiff.lastName }}
+                    <span v-if="plaintiff.description">({{ plaintiff.description }})</span>
+                  </template>
+                  <template v-else>{{ plaintiff.description }}</template>
+                </option>
               </select>
             </label>
           </fieldset>
