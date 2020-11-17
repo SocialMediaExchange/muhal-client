@@ -4,6 +4,16 @@
       <div class="pa4 bg-white muhal-purple">
         <h2>{{ $t("filterCases.title") }}</h2>
         <form @submit.prevent="updateFilter">
+          <fieldset class="bw0 mv3">
+            <label>
+              <input
+                type="search"
+                class="w-100 br2 pa2 ba b--muhal-blue"
+                :placeholder="$t('filterCases.searchContent')"
+                v-model="filter.searchText"
+              />
+            </label>
+          </fieldset>
           <!-- country options  -->
           <fieldset class="bw0 mv3">
             <label>
@@ -264,7 +274,6 @@ export default {
   },
   methods: {
     shareCase(case_id) {
-      console.log(`share ${case_id}`)
     }
   },
   computed: {
