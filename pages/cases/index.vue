@@ -252,7 +252,11 @@ export default {
       const cases = await $axios.$get(`/cases/`)
       const plaintiffs = await $axios.$get(`/plaintiffs/`)
       const platforms = await $axios.$get(`/platforms/`)
-      filter.fromDateOfPublication = cases.slice(-1)[0].dateOfPublication
+      let earliestDate = cases.sort(function(case1, case2) {
+        return new Date(case2.dateOfPublication) - new Date(case1.dateOfPublication)
+      }).filter((case_) => case_.dateOfPublication != null)
+        .slice(-1)[0].dateOfPublication
+      filter.fromDateOfPublication = earliestDate
       return {
         cases: cases,
         plaintiffs: plaintiffs,
@@ -283,13 +287,14 @@ export default {
     earliestCaseDate: function() {
       // assumes that the cases are ordered in decending order by date of contact
       // by the server
-      let lastCase = this.cases.slice(-1)[0]
+      let lastCase = this.cases.sort(function(case1, case2) {
+        return new Date(case2.dateOfPublication) - new Date(case1.dateOfPublication)
+      }).filter((case_) => case_.dateOfPublication != null)
+        .slice(-1)[0]
       return lastCase ? lastCase["dateOfPublication"] : new Date(2010, 1, 1)
     },
     filteredCases: function() {
-      console.log(this.filter.countries)
       return this.cases.filter(case_ => {
-      console.log(case_.country)
         return (
           case_.summary.includes(this.filter.searchText) &&
           (this.filter.countries === "all" ||
