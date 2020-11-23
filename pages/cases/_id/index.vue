@@ -153,7 +153,7 @@
     </div>
 
     <!-- case references  -->
-    <div class="w-80 center mv3 bg-white pa4">
+    <div v-if="case_.references.length > 0" class="w-80 center mv3 bg-white pa4">
       <h2>{{ $t('details.references.title') }}</h2>
       <div class="w-100">
         <ol class="">
