@@ -151,6 +151,19 @@
         </ol>
       </div>
     </div>
+
+    <!-- case references  -->
+    <div class="w-80 center mv3 bg-white pa4">
+      <h2>{{ $t('details.references.title') }}</h2>
+      <div class="w-100">
+        <ol class="">
+          <li v-for="reference in case_.references" :key="reference.id">
+            <a :href="reference.url" class="link underline muhal-purple" target="_blank">{{ reference.title }}</a>
+          </li>
+        </ol>
+      </div>
+    </div>
+
     <!-- more cases button  -->
     <div class="mw8 center ph-ns pv4 tc">
       <nuxt-link
@@ -352,6 +365,9 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
         "dateOfHearing2": "second hearing",
         "dateOfRelease": "release",
         "dateOfRuling": "ruling"
+      },
+      "references": {
+        "title": "References"
       }
     },
     "moreCases": "View more cases"
@@ -406,7 +422,10 @@ $muhal-grey-light: hsla(240, 5%, 96%, 1);
         "dateOfHearing2": "الجلسة الثانية",
         "dateOfRelease": "إطلاق السراح",
         "dateOfRuling": "إطلاق الحكم"
-      }     
+      },
+      "references": {
+        "title": "المراجع"
+      }   
     },
     "moreCases": "عرض حالات أخرى"
   }
