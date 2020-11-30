@@ -2,6 +2,9 @@
   <div class="cf w-100">
     <div id="filter" class="fs w-50-m w-30-ns f4">
       <div class="pa4 bg-white muhal-purple">
+        <p>
+          
+        </p>
         <h2>{{ $t("filterCases.title") }}</h2>
         <form @submit.prevent="updateFilter">
           <fieldset class="bw0 mv3">

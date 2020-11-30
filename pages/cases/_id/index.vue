@@ -162,15 +162,15 @@
           </li>
         </ol>
       </div>
-    </div>
+    </div> 
 
     <!-- case attachments  -->
-    <div v-if="case_.attachments.length > 0" class="w-80 center mv3 bg-white pa4">
-      <h2>{{ $t('details.attachments.title') }}</h2>
+    <div v-if="case_.publicAttachments.length > 0" class="w-80 center mv3 bg-white pa4">
+      <h2 class="mb0">{{ $t('details.attachments.title') }}</h2>
       <div class="w-100">
         <ul class="list">
-          <li v-for="attachment in case_.attachments" :key="attachment.id" 
-              class="br2 ba b--muhal-blue w-80">
+          <li v-for="attachment in case_.publicAttachments" :key="attachment.id" 
+              class="br2 ba b--muhal-blue w-80 mv2">
               <div class="dib bg-muhal-grey-light pa2"> 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h1">
                 <path style="fill:currentColor;fill-opacity:1;stroke:black;stroke-width:0.7px" 
