@@ -64,7 +64,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.BASE_API_URL,
+    // baseURL: process.env.BASE_API_URL,
+    baseURL: process.client ? 'http://' + process.env.PROJECT_URL + '/api' : 'http://backend:8000/api',
     retry: { retries: 3 }, 
     debug: false
   },
