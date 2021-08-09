@@ -65,9 +65,19 @@ export default {
   */
   axios: {
     // baseURL: process.env.BASE_API_URL,
-    baseURL: process.client ? 'http://' + process.env.PROJECT_URL + '/api' : 'http://backend:8000/api',
+    // baseURL: process.client ? 'http://' + process.env.PROJECT_URL + '/api' : 'http://backend:8000/api',
     retry: { retries: 3 }, 
     debug: false
+  },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: `http://${process.env.PROJECT_URL}/api`
+    }
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.PRIVATE_BASE_API_URL
+    }
   },
   /*
   ** Build configuration
