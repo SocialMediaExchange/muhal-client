@@ -1,7 +1,7 @@
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
 export default {
-  mode: 'universal',
+  ssr: true,
   /*
   ** Headers of the page
   */
@@ -51,6 +51,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
@@ -64,21 +65,25 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // baseURL: process.env.BASE_API_URL,
+    baseURL: process.env.BASE_API_URL,
     // baseURL: process.client ? 'http://' + process.env.PROJECT_URL + '/api' : 'http://backend:8000/api',
     retry: { retries: 3 }, 
     debug: false
   },
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: `http://${process.env.PROJECT_URL}/api`
-    }
-  },
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.PRIVATE_BASE_API_URL
-    }
-  },
+  // proxy: {
+  //   '/api': 'http://google.com/api',
+  // },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: `http://google.com/api`
+  //     // browserBaseURL: `http://${process.env.PROJECT_URL}/api`
+  //   }
+  // },
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.PRIVATE_BASE_API_URL
+  //   }
+  // },
   /*
   ** Build configuration
   */

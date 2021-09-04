@@ -221,12 +221,12 @@ export default {
   },
   components: { DetailTableRow, DetailSection, CaseTimeline },
   async asyncData({ $axios, params }) {
-    try {
-      let case_ = await $axios.$get(`/cases/${params.id}`)
-      return { id: case_.id, case_ }
-    } catch (e) {
-      return {}
-    }
+    let case_ = await $axios
+      .$get(`/cases/${params.id}`)
+      .then(function (resp) {
+        return resp
+      })
+    return { id: case_.id, case_ }
   },
   data() {
     return {

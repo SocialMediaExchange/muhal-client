@@ -30,6 +30,7 @@
                 <option selected value="all">--> {{ $t("filterCases.allCountries") }} </option> 
                 <option value="lebanon">{{ $t("filterCases.lebanon") }}</option>
                 <option value="jordan">{{ $t("filterCases.jordan") }}</option>
+                <option value="tunisia">{{ $t("filterCases.tunisia") }}</option>
               </select>
             </label>
           </fieldset>
@@ -431,7 +432,8 @@ select {
       "countries": "Countries",
       "allCountries": "All countries",
       "lebanon": "Lebanon",
-      "jordan": "Jordan"
+      "jordan": "Jordan",
+      "tunisia": "Tunisia"
     }
   },
   "ar": {
@@ -459,7 +461,8 @@ select {
       "countries": "الدول",
       "allCountries": "كل الدول",
       "lebanon": "لبنان",
-      "jordan": "الأردن"
+      "jordan": "الأردن",
+      "tunisia": "تونس"
     }
   }
 }
